@@ -1,0 +1,1072 @@
+/* ================================================================
+   APP.CSS — PORTFOLIO REDESIGN
+   Inspired by clean, editorial two-column profile layout.
+   ================================================================ */
+
+
+/* ================================================================
+   1. CSS CUSTOM PROPERTIES (VARIABLES)
+   
+   These are the single source of truth for the entire design.
+   Change one value here → it updates everywhere that uses it.
+   ================================================================ */
+
+:root {
+    /* ── BACKGROUNDS ─────────────────────────────────────────────
+       --bg-main    : The main page background. White in light mode.
+                      Every section sits directly on this, no card boxes.
+       --bg-surface : A very subtle off-white used for pill tags, 
+                      hover states, and chat bubbles — just enough 
+                      contrast against --bg-main.
+       --bg-dark-card: The identity card in the sidebar. 
+                       Kept separate so it stays dark even in dark mode.
+    ── */
+    --bg-main:       #ffffff;
+    --bg-surface:    #f4f4f5;
+    --bg-dark-card:  #18191d;
+
+    /* ── TEXT ────────────────────────────────────────────────────
+       --text-primary   : Headings, labels, strong content.
+       --text-secondary : Body copy, descriptions — slightly softer.
+       --text-muted     : Dates, captions, "FOUNDING MEMBER" labels.
+       --text-on-dark   : Text that sits on the dark identity card.
+    ── */
+    --text-primary:    #111111;
+    --text-secondary:  #52525b;
+    --text-muted:      #a1a1aa;
+    --text-on-dark:    #e4e4e7;
+
+    /* ── BORDERS ─────────────────────────────────────────────────
+       --border-color : Used for dividers, card outlines, input 
+                        borders. A barely-there line that gives 
+                        structure without weight.
+    ── */
+    --border-color: #e4e4e7;
+
+    /* ── ACCENT COLOURS ──────────────────────────────────────────
+       --accent-blue       : The champion badge and primary button.
+                             Draws the eye to the one most important CTA.
+       --accent-blue-hover : Slightly darker — used on :hover so the
+                             button feels "pressed".
+    ── */
+    --accent-blue:       #2563eb;
+    --accent-blue-hover: #1d4ed8;
+
+    /* ── SPACING ─────────────────────────────────────────────────
+       --section-gap : Vertical breathing room between sections.
+                       Increase it to feel "airy"; decrease to feel 
+                       "dense". Everything uses this one value, so 
+                       changing it resizes all whitespace proportionally.
+       --page-h-pad  : Left/right padding inside the page wrapper.
+    ── */
+    --section-gap: 40px;
+    --page-h-pad:  48px;
+
+    /* ── MAX WIDTH ───────────────────────────────────────────────
+       --container-width : Maximum content width. Content centres 
+                           and won't stretch wider than this on large 
+                           monitors. 1100px ~= a comfortable reading 
+                           line on a 1440p screen.
+    ── */
+    --container-width: 1100px;
+
+    /* ── BORDER RADIUS ───────────────────────────────────────────
+       --radius-sm  : Small elements like buttons, pill chips (6px).
+       --radius-md  : Cards and photo (10px).
+       --radius-pill: Fully rounded pill shape (999px).
+    ── */
+    --radius-sm:   6px;
+    --radius-md:   10px;
+    --radius-pill: 999px;
+
+    /* ── LAYOUT COLUMNS ──────────────────────────────────────────
+       --right-col-width : Fixed pixel width for the right sidebar.
+                           The left column gets all remaining space (1fr).
+                           Increase this to give more room to experience/card.
+    ── */
+    --right-col-width: 320px;
+
+    /* ── TYPOGRAPHY ──────────────────────────────────────────────
+       --font-body : Main font stack. 'DM Sans' is a modern geometric 
+                     sans that feels less generic than Inter while 
+                     staying highly readable.
+       --font-mono : Used for the identity card and code chips — 
+                     gives a terminal / tech aesthetic.
+    ── */
+    --font-body: 'DM Sans', 'Segoe UI', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+}
+
+/* ── DARK MODE ────────────────────────────────────────────────────
+   When body has .dark-mode class, these override the :root values.
+   Any property NOT listed here keeps its :root value.
+── */
+body.dark-mode {
+    --bg-main:      #0f1115;
+    --bg-surface:   #1c1f26;
+    --text-primary:    #f0f0f2;
+    --text-secondary:  #a1a1aa;
+    --text-muted:      #52525b;
+    --border-color:    #27272a;
+}
+
+
+/* ================================================================
+   2. BASE RESET & BODY
+   ================================================================ */
+
+/* Import Google Fonts — add to your index.html <head> instead if 
+   you want faster loading, but this works fine for development. */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.65;
+    font-size: 15px;
+    transition: background 0.25s ease, color 0.25s ease;
+    -webkit-font-smoothing: antialiased;
+}
+
+a { text-decoration: none; color: inherit; }
+
+p {
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+    font-size: 0.9375rem; /* 15px */
+}
+p:last-child { margin-bottom: 0; }
+
+
+/* ================================================================
+   3. PAGE WRAPPER
+   ================================================================ */
+
+.portfolio-wrapper {
+    max-width: var(--container-width);   /* Never wider than 1100px */
+    margin: 0 auto;                      /* Centre horizontally */
+    padding: 60px var(--page-h-pad);     /* Top/bottom 60px, sides use var */
+    width: 100%;
+}
+
+/* Horizontal rule used as a section separator */
+.section-divider {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: var(--section-gap) 0;
+}
+
+
+/* ================================================================
+   4. HEADER — PROFILE SECTION
+   ================================================================ */
+
+.profile-header {
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+    margin-bottom: var(--section-gap);
+}
+
+/* Square photo — matches the Bryl Lim reference more than round */
+.profile-photo {
+    width: 110px;
+    height: 110px;
+    border-radius: var(--radius-md);
+    background-image: url('/1x1.jpg');
+    background-size: cover;
+    background-position: center;
+    border: 1px solid var(--border-color);
+    flex-shrink: 0;             /* Never squishes in flexbox */
+    transition: background-image 0.3s ease;
+    cursor: pointer;
+}
+.profile-photo:hover {
+    background-image: url('/Gallery4.png');
+}
+
+.profile-info { flex: 1; }
+
+.profile-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 6px;
+}
+
+/* ── NAME + LOCATION ── */
+.name-group h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+    letter-spacing: -0.02em;   /* Tight tracking looks more refined */
+}
+
+.verified-icon {
+    color: #0ea5e9;            /* Sky blue checkmark */
+    font-size: 1rem;
+}
+
+.profile-location {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.profile-location i { font-size: 0.75rem; }
+
+.profile-title {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+/* ── THEME TOGGLE (Sliding Switch) ── */
+.theme-switch {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.theme-track {
+    width: 56px;
+    height: 30px;
+    background-color: var(--border-color); /* Light gray track */
+    border-radius: 4px; /* Squared edges like your screenshot */
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.theme-thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    background-color: var(--bg-main); /* White thumb */
+    border-radius: 2px; /* Very sharp corners */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+/* Moves the thumb to the right when dark mode is active */
+.theme-switch.dark .theme-thumb {
+    transform: translateX(26px);
+    background-color: #27272a; /* Dark thumb for dark mode */
+    color: #f0f0f2;
+}
+.theme-switch.dark .theme-track {
+    background-color: var(--bg-surface);
+}
+
+/* ── CHAMPION BADGE ── */
+.badge-row { margin: 14px 0 16px; }
+
+.champion-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent-blue);
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: var(--radius-pill);   /* Fully round pill */
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.15s;
+    cursor: pointer;
+}
+.champion-badge:hover {
+    background: var(--accent-blue-hover);
+    transform: translateY(-1px);
+}
+.champion-badge .badge-arrow { font-size: 0.7rem; opacity: 0.7; }
+
+/* ── ACTION BUTTONS ── */
+.profile-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Primary: filled dark button (Send Email) */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--text-primary);     /* Black in light, white in dark */
+    color: var(--bg-main);               /* Inverts: white text on black */
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: opacity 0.2s, transform 0.15s;
+    cursor: pointer;
+    border: none;
+}
+.btn-primary:hover { opacity: 0.8; transform: translateY(-1px); }
+
+/* Secondary: outlined ghost button (LinkedIn, PDF) */
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background 0.2s, transform 0.15s;
+}
+.btn-secondary:hover {
+    background: var(--bg-surface);
+    transform: translateY(-1px);
+}
+
+
+/* ================================================================
+   5. TWO-COLUMN GRID LAYOUT
+   ================================================================ */
+
+.two-col-layout {
+    display: grid;
+    /* Left column takes all free space; right column is fixed width */
+    grid-template-columns: 1fr var(--right-col-width);
+    gap: 60px;                /* Horizontal gutter between columns */
+    align-items: start;       /* Don't stretch columns to equal height */
+}
+
+.left-col  { min-width: 0; } /* Prevents overflow on narrow screens */
+.right-col { position: sticky; top: 24px; } /* Sidebar stays in view while scrolling */
+
+
+/* ================================================================
+   6. SHARED SECTION STYLES
+   ================================================================ */
+
+.content-section {
+    margin-bottom: var(--section-gap);
+}
+.content-section:last-child { margin-bottom: 0; }
+
+.sidebar-section { margin-top: 32px; }
+
+.full-width-section { width: 100%; }
+
+/* Section titles — large, bold, simple */
+.section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+}
+
+/* Row that puts title left and a "View All" or nav button right */
+.section-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.section-header-row .section-title { margin-bottom: 0; }
+
+
+/* ================================================================
+   7. TECH STACK
+   ================================================================ */
+
+.stack-group { margin-bottom: 20px; }
+.stack-group:last-child { margin-bottom: 0; }
+
+/* Category label e.g. "FRONTEND" — small-caps, muted */
+.stack-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+}
+
+.stack-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Individual tech pill — minimal border, no fill */
+.stack-pills span {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 5px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: border-color 0.2s;
+}
+.stack-pills span:hover { border-color: var(--text-muted); }
+
+
+/* ================================================================
+   8. PROJECTS GRID
+   ================================================================ */
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* Each project is a bordered card — no heavy background fill */
+.project-card {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+    background: var(--bg-main);
+}
+.project-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    transform: translateY(-2px);
+    border-color: var(--text-muted);
+}
+
+.project-card h3 {
+    font-size: 0.975rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.35;
+}
+
+.project-card p {
+    font-size: 0.875rem;
+    flex: 1;               /* Pushes footer to bottom regardless of text length */
+    margin-bottom: 0;
+}
+
+.project-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: auto;
+}
+
+/* Monospace chip — like a URL slug */
+.project-chip {
+    font-family: var(--font-mono);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+.project-links { display: flex; gap: 8px; align-items: center; }
+
+/* Ghost text button — no border, just a coloured label */
+.proj-link-btn {
+    background: none;
+    border: none;
+    color: var(--accent-blue);
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 0;
+    font-family: var(--font-body);
+    transition: opacity 0.2s;
+}
+.proj-link-btn:hover { opacity: 0.7; text-decoration: underline; }
+
+
+/* ================================================================
+   9. DARK IDENTITY CARD (Right Sidebar)
+   ================================================================ */
+
+/* 
+   This card ALWAYS stays dark (uses --bg-dark-card, not --bg-main).
+   Even in dark mode the card keeps its near-black look.
+   Padding + flex column creates the layered "access card" structure.
+*/
+.identity-card {
+    background: var(--bg-dark-card);
+    border-radius: var(--radius-md);
+    padding: 26px 24px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 0;
+    transition: transform 0.1s ease-out;
+    will-change: transform; 
+}
+
+/* Subtle decorative circle in top-right corner */
+.identity-card::before {
+    content: '';
+    position: absolute;
+    top: -50px; right: -50px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.04);
+    pointer-events: none;
+}
+
+/* Iridescent shining spotlight that follows the cursor */
+.identity-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* This gradient mixes bright center, blue mid-tone, and purple edge */
+    background: radial-gradient(
+        600px circle at var(--mouse-x) var(--mouse-y),
+        rgba(255, 255, 255, 0.15) 0%,
+        rgba(120, 165, 255, 0.08) 20%,
+        rgba(197, 138, 248, 0.04) 45%,
+        transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none; /* Ensures the cursor can still click things underneath */
+    z-index: 1;
+}
+
+/* Fades the shine in only when the mouse is over the card */
+.identity-card:hover::after {
+    opacity: 1;
+}
+
+/* Terminal cursor ">_" at the top */
+.id-cursor {
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -2px;
+    display: block;
+    margin-bottom: 12px;
+}
+
+/* Small category label rows */
+.id-org {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--text-on-dark);
+    margin-bottom: 2px;
+    padding-top: 8px;
+}
+.id-type {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    color: var(--text-on-dark);
+    opacity: 0.8;
+    margin-bottom: 0;
+}
+
+/* Lower section */
+.id-card-bottom { margin-top: auto; }
+
+.id-member-label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    color: var(--text-on-dark);
+    margin-bottom: 4px;
+}
+
+.id-name {
+    font-family: var(--font-mono);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+}
+
+/* Last row: role text + QR icon side by side */
+.id-card-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.id-role {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: var(--text-on-dark); 
+    opacity: 0.8;
+    margin-bottom: 0;
+}
+
+/* Placeholder QR code box */
+.id-qr {
+    width: 44px; height: 44px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.4);
+    font-size: 1.2rem;
+}
+
+
+/* ================================================================
+   10. EXPERIENCE SIDEBAR TIMELINE
+   ================================================================ */
+
+/* 
+   Each row = a small square checkbox + text details.
+   Matches the Bryl Lim reference: checkbox, title, year on right.
+*/
+.exp-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.exp-row {
+    display: flex;
+    gap: 12px;
+    padding: 0 0 28px 0; /* Replaced top/bottom padding with bottom spacing for the line */
+    align-items: flex-start;
+    position: relative; /* Needed to anchor the connecting line */
+}
+
+/* Draws the vertical line between boxes */
+.exp-row:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    top: 18px; /* Starts right below the top box */
+    left: 6.5px; /* Perfectly centers the line under the 14px box */
+    width: 1.5px;
+    height: calc(100% - 18px); /* Stretches exactly to the next box */
+    background-color: var(--border-color);
+    transition: background-color 0.2s;
+    z-index: 1;
+}
+
+.exp-box {
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid var(--border-color);
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 4px;
+    background: var(--bg-main);
+    position: relative;
+    z-index: 2; /* Keeps the box floating above the vertical line */
+    transition: background 0.2s, border-color 0.2s;
+}
+
+/* Hover effect: Both the box AND the connecting line light up! */
+.exp-row:hover .exp-box {
+    background: var(--text-primary);
+    border-color: var(--text-primary);
+}
+
+.exp-info { flex: 1; min-width: 0; }
+
+.exp-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 3px;
+}
+.exp-top-row strong {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+}
+.exp-yr {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+}
+.exp-company {
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    margin-bottom: 0;
+}
+
+
+/* ================================================================
+   11. GALLERY
+   ================================================================ */
+
+.gallery-controls { display: flex; gap: 8px; }
+
+/* Small square nav arrows */
+.gal-btn {
+    width: 32px; height: 32px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background: var(--bg-main);
+    cursor: pointer;
+    color: var(--text-primary);
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+.gal-btn:hover { background: var(--bg-surface); }
+
+.gallery-slider {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 10px;
+    scrollbar-width: none;
+}
+.gallery-slider::-webkit-scrollbar { display: none; }
+
+.gallery-slider img {
+    height: 200px;
+    min-width: 280px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: transform 0.25s;
+}
+.gallery-slider img:hover { transform: scale(1.02); }
+
+
+/* ================================================================
+   12. FOOTER
+   ================================================================ */
+
+.site-footer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    padding-bottom: 40px;
+}
+
+.footer-col h4 {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 14px;
+   
+}
+
+/* Links and paragraphs in footer */
+.footer-col a,
+.footer-col p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+    line-height: 1.5;
+}
+.footer-col a:hover { color: var(--text-primary); }
+.footer-col i { width: 16px; font-size: 0.875rem; }
+
+
+/* ================================================================
+   13. CHATBOT (FAB + CHAT WINDOW)
+   ================================================================ */
+
+/* Floating action button — always visible bottom-right */
+.chatbot-fab {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    background: var(--text-primary);
+    color: var(--bg-main);
+    border: none;
+    padding: 13px 22px;
+    border-radius: var(--radius-pill);
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: var(--font-body);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    transition: transform 0.25s, box-shadow 0.25s;
+    z-index: 100;
+}
+.chatbot-fab:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+}
+
+.chat-container {
+    position: fixed;
+    bottom: 84px; right: 28px;
+    width: 340px; height: 500px;
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+    display: none;
+    flex-direction: column;
+    z-index: 200;
+    overflow: hidden;
+}
+
+.chat-header {
+    background: var(--text-primary);
+    color: var(--bg-main);
+    padding: 16px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+.chat-title { display: flex; align-items: center; gap: 8px; }
+.close-chat {
+    background: none; border: none;
+    color: inherit; font-size: 1.4rem; cursor: pointer; line-height: 1;
+}
+
+.chat-body {
+    flex: 1; padding: 16px;
+    overflow-y: auto;
+    display: flex; flex-direction: column; gap: 10px;
+    background: var(--bg-surface);
+}
+
+.bot-message, .user-message {
+    max-width: 86%;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+.bot-message {
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    align-self: flex-start;
+    border-bottom-left-radius: 3px;
+    color: var(--text-primary);
+}
+.user-message {
+    background: var(--text-primary);
+    color: var(--bg-main);
+    align-self: flex-end;
+    border-bottom-right-radius: 3px;
+}
+
+.chat-input-area {
+    padding: 13px;
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-main);
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+.chat-input-area input {
+    flex: 1; padding: 9px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-pill);
+    outline: none;
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    font-family: var(--font-body);
+}
+.chat-input-area button {
+    background: var(--text-primary);
+    color: var(--bg-main);
+    border: none;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem;
+    transition: opacity 0.2s;
+}
+.chat-input-area button:hover { opacity: 0.8; }
+
+
+/* ================================================================
+   14. IMAGE MODAL
+   ================================================================ */
+
+.image-modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 1000;
+    display: flex; justify-content: center; align-items: center;
+    backdrop-filter: blur(5px);
+    animation: fadeInOverlay 0.2s ease;
+}
+
+.image-modal-content {
+    position: relative;
+    max-width: 90%; max-height: 90vh;
+    border-radius: var(--radius-md);
+    padding: 10px;
+    background: var(--bg-main);
+}
+.image-modal-content img {
+    max-width: 100%; max-height: 85vh;
+    object-fit: contain; border-radius: 4px; display: block;
+}
+
+.close-modal-btn {
+    position: absolute; top: -40px; right: 0;
+    background: transparent; border: none;
+    color: white; font-size: 1.8rem; cursor: pointer;
+    transition: transform 0.2s;
+}
+.close-modal-btn:hover { transform: scale(1.2); }
+
+@keyframes fadeInOverlay {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+
+/* ================================================================
+   15. SNOW (seasonal effect, Sept–Dec)
+   ================================================================ */
+
+.snowflake {
+    position: fixed; top: -10px;
+    background: var(--text-primary);
+    border-radius: 50%;
+    pointer-events: none; z-index: 9999; opacity: 0.25;
+    animation: snowFall linear infinite;
+}
+@keyframes snowFall {
+    from { transform: translateY(-10vh) translateX(0); }
+    to   { transform: translateY(105vh) translateX(25px); }
+}
+
+
+/* ================================================================
+   16. RESPONSIVE BREAKPOINTS
+   ================================================================ */
+
+@media (max-width: 920px) {
+    /* Stack two columns into single column */
+    .two-col-layout {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    .right-col {
+        position: static;           /* Remove sticky on mobile */
+        margin-top: var(--section-gap);
+    }
+    /* Reverse order: show identity card AFTER content on mobile */
+    .right-col { order: 2; }
+    .left-col  { order: 1; }
+
+    .site-footer { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+    .portfolio-wrapper { padding: 36px 20px; }
+    
+    /* Header stacks vertically */
+    .profile-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    .profile-photo { width: 90px; height: 90px; }
+    .name-group h1 { font-size: 1.4rem; }
+    
+    /* Buttons take full width */
+    .profile-actions { flex-direction: column; }
+    .btn-primary, .btn-secondary { justify-content: center; }
+
+    /* Projects single column */
+    .projects-grid { grid-template-columns: 1fr; }
+
+    /* Footer single column */
+    .site-footer { grid-template-columns: 1fr; gap: 24px; }
+
+    /* Theme toggle moves to name row end */
+    .profile-top-row { flex-wrap: wrap; gap: 10px; }
+}
+
+.avatar-display-container {
+    position: relative;
+    width: 120px;  /* Exactly 1.5 inches on standard screens */
+    height: 120px; /* Exactly 1.5 inches */
+    border-radius: var(--radius-sm); /* Slightly sharper corners for an ID look */
+    border: 1px solid var(--border-color); /* Gives it that printed photo frame feel */
+    overflow: hidden;
+    flex-shrink: 0; /* Prevents the grid from squishing your photo */
+}
+
+/* Base style shared across both static images and video transitions */
+.avatar-asset {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.2s ease-in-out;
+    pointer-events: none;
+}
+
+/* Video specific handling to ensure proper rendering layers */
+.video-asset {
+    z-index: 10;
+}
+
+/* Visibility triggers controlled by React state classes */
+.avatar-asset.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.avatar-asset.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
