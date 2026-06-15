@@ -1,9 +1,46 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 
+const PROJECTS_DATA = [
+    {
+        id: "airlink",
+        title: "Embedded Systems: Airlink Defense System with Encryption Message for Indigenous people",
+        shortDesc: "Encryption message transmission tool built to help the AFP provide services in secluded areas.",
+        fullDesc: "Developed an encryption message transmission tool using ESP32 as a transmission message utility, handling software integration with encryption logic using ATECC608a chip and receiver-side architecture. Built to help the AFP provide services for indigenous people in secluded areas.",
+        hardware: ["ESP32 Development Module", "ATECC608a Crypto-Chip", "Receiver-side architecture"],
+        credentials: [
+            { type: "image", label: "Courtesy Call from the President", src: "/Gallery2.png" },
+            { type: "image", label: "Embedded System Project", src: "airlink_hardware.jpg" },
+            { type: "pdf", label: "AFP Project Documentation", src: "AFP.pdf" }
+        ]
+    },
+    {
+        id: "lpg-iot",
+        title: "IoT-enabled LPG Leak Detection, Weight Monitoring, and Valve Automatic Shutoff System",
+        shortDesc: "Hardware and software development for LPG automation utilizing an ESP32 microcontroller.",
+        fullDesc: "Led hardware and software development utilizing an ESP32 microcontroller. Integrates load cell for tank monitoring, MQ-6 gas sensor to detect leaks and gas concentration, and a servo motor embedded with a ball valve for auto shut-off mechanism, providing automation for users in handling LPG and can control via mobile app over the internet.",
+        hardware: ["ESP32 Microcontroller", "React-Native", "MQ-6 Gas Sensor", "Load Cell", "Servo Motor with Ball Valve"],
+        credentials: [
+            { type: "image", label: "View Mobile App Interface", src: "/GaSolve_app.png" }
+        ]
+    },
+    {
+        id: "blood-bank",
+        title: "Software Design: Blood Bank Management System",
+        shortDesc: "Web dashboard created to improve the exchange of data and to enrich scalability.",
+        fullDesc: "Collaborated on creating a web dashboard for the project blood bank management system to improve the exchange of data and to enrich scalability. Further, to enhance user experience and streamline operations using modern web technologies.",
+        hardware: ["React", "Laravel PHP", "MySQL"],
+        credentials: [
+            // ADDED THIS PLACEHOLDER FOR YOUR FUTURE IMAGE
+            { type: "image", label: "View Dashboard Preview", src: "/bloodbank_image.png" }
+        ]
+    }
+];
+
 export default function Portfolio() {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [activeProjectImage, setActiveProjectImage] = useState(null);
+    const [activeProjectPage, setActiveProjectPage] = useState(null);
     const [avatarState, setAvatarState] = useState(isDarkMode ? 'dark' : 'light');
     const toDarkVideoRef = useRef(null);
     const toLightVideoRef = useRef(null);
@@ -32,8 +69,6 @@ export default function Portfolio() {
             document.body.classList.add('dark-mode');
         }
     }, []);
-
-    
 
     const toggleTheme = () => {
         setIsDarkMode(!isDarkMode);
@@ -301,201 +336,243 @@ export default function Portfolio() {
 
             <hr className="section-divider" />
 
-            {/* ===================== TWO-COLUMN BODY ===================== */}
-            <div className="two-col-layout">
+{/* ===================== TWO-COLUMN BODY ===================== */}
+            {!activeProjectPage && (
+                <div className="two-col-layout">
 
-                {/* ——— LEFT COLUMN ——— */}
-                <div className="left-col">
+                    {/* ——— LEFT COLUMN ——— */}
+                    <div className="left-col">
 
-                    {/* ABOUT */}
-                    <section className="content-section">
-                        <h2 className="section-title">About</h2>
-                        <p>As a dedicated Computer Engineer, I have cultivated a rigorous foundation in system integration, embedded systems, and complex problem-solving. My academic and practical experiences have equipped me with the analytical mindset necessary to design efficiently.</p>
-                        <p>Building upon this solid engineering background, I am highly motivated to master the complete lifecycle of full-stack software development. I am actively expanding my technical expertise across both client-side interfaces and server-side architectures.</p>
-                        <p>Currently, my primary focus and passion are directed toward advanced backend engineering, specifically utilizing PHP and the robust Laravel framework. I am deeply committed to leveraging these technologies to architect scalable, secure, and high-performance web applications.</p>
-                    </section>
+                        {/* ABOUT */}
+                        <section className="content-section">
+                            <h2 className="section-title">About</h2>
+                            <p>As a dedicated Computer Engineer, I have cultivated a rigorous foundation in system integration, embedded systems, and complex problem-solving. My academic and practical experiences have equipped me with the analytical mindset necessary to design efficiently.</p>
+                            <p>Building upon this solid engineering background, I am highly motivated to master the complete lifecycle of full-stack software development. I am actively expanding my technical expertise across both client-side interfaces and server-side architectures.</p>
+                            <p>Currently, my primary focus and passion are directed toward advanced backend engineering, specifically utilizing PHP and the robust Laravel framework. I am deeply committed to leveraging these technologies to architect scalable, secure, and high-performance web applications.</p>
+                        </section>
 
-                    <hr className="section-divider" />
+                        <hr className="section-divider" />
 
-                    {/* TECH STACK */}
-                    <section className="content-section">
-                        <div className="section-header-row">
-                            <h2 className="section-title">Tech Stack</h2>
-                        </div>
-                        <div className="stack-group">
-                            <h3 className="stack-label">Frontend</h3>
-                            <div className="stack-pills">
-                                <span>React</span><span>JavaScript</span>
-                                <span>TypeScript</span><span>Flutter</span>
+                        {/* TECH STACK */}
+                        <section className="content-section">
+                            <div className="section-header-row">
+                                <h2 className="section-title">Tech Stack</h2>
                             </div>
-                        </div>
-                        <div className="stack-group">
-                            <h3 className="stack-label">Backend</h3>
-                            <div className="stack-pills">
-                                <span>PHP</span><span>Laravel</span>
-                                <span>Node.js</span><span>Python</span>
+                            <div className="stack-group">
+                                <h3 className="stack-label">Frontend</h3>
+                                <div className="stack-pills">
+                                    <span>React</span><span>JavaScript</span>
+                                    <span>TypeScript</span><span>Flutter</span>
+                                </div>
                             </div>
-                        </div>
-                        <div className="stack-group">
-                            <h3 className="stack-label">DevOps & Cloud</h3>
-                            <div className="stack-pills">
-                                <span>Git</span>
-                                <span>Firebase</span><span>MySQL</span>
+                            <div className="stack-group">
+                                <h3 className="stack-label">Backend</h3>
+                                <div className="stack-pills">
+                                    <span>PHP</span><span>Laravel</span>
+                                    <span>Node.js</span><span>Python</span>
+                                </div>
                             </div>
-                        </div>
-                      
-                    </section>
-
-                    <hr className="section-divider" />
-
-                    {/* RECENT PROJECTS */}
-                    <section className="content-section">
-                        <div className="section-header-row">
-                            <h2 className="section-title">Recent Projects</h2>
-                        </div>
-                        <div className="projects-grid">
-                            <div className="project-card">
-                                <h3>Airlink Defense System</h3>
-                                <p>Developed an encryption message transmission tool using ESP32 as a transmission message utility, 
-                                    handling software integration with encryption logic using ATECC608a chip and receiver-side architecture. 
-                                    Built to help the AFP provide services for indigenous people in secluded areas.</p>
-                                <div className="project-footer">
-                                    <span className="project-chip">Airlink-Defense · 2025</span>
-                                    <div className="project-links">
-                                        <button className="proj-link-btn" onClick={() => setActiveProjectImage('/Gallery2.png')}>
-                                            View Image <i className="fa-solid fa-image"></i>
-                                        </button>
-                                        <a href="AFP.pdf" target="_blank" rel="noreferrer" className="proj-link-btn">
-                                            PDF <i className="fa-solid fa-arrow-up-right-from-square"></i>
-                                        </a>
-                                    </div>
+                            <div className="stack-group">
+                                <h3 className="stack-label">DevOps & Cloud</h3>
+                                <div className="stack-pills">
+                                    <span>Git</span>
+                                    <span>Firebase</span><span>MySQL</span>
                                 </div>
                             </div>
 
-                            <div className="project-card">
-                                <h3>IoT LPG Leak Detection System</h3>
-                                <p>Led hardware and software development utilizing an ESP32 microcontroller. 
-                                    Integrates load cell for tank monitoring, MQ-6 gas sensor to detect leaks and gas concentration, 
-                                    and a servo motor embedded with a ball valve for auto shut-off mechanism, providing automation for users in handling LPG and can control via mobile app over the internet.</p>
-                                <div className="project-footer">
-                                    <span className="project-chip">GaSolve-IoT · 2026</span>
-                                    <div className="project-links">
-                                        <button className="proj-link-btn" onClick={() => setActiveProjectImage('GaSolve_app.png')}>
-                                            View Image <i className="fa-solid fa-image"></i>
+                        </section>
+
+                        <hr className="section-divider" />
+
+{/* RECENT PROJECTS */}
+                        <section className="content-section">
+                            <div className="section-header-row">
+                                <h2 className="section-title">Recent Projects</h2>
+                            </div>
+
+                            <div className="projects-grid">
+                                {PROJECTS_DATA.map((project) => (
+                                    <div key={project.id} className="project-card">
+                                        <h3>{project.title}</h3>
+                                        <p>{project.shortDesc}</p>
+
+                                        {/* Triggers the dedicated individual page */}
+                                        <button
+                                            className="see-more-btn"
+                                            onClick={() => setActiveProjectPage(project)}
+                                        >
+                                            See more <i className="fa-solid fa-arrow-right"></i>
                                         </button>
                                     </div>
-                                </div>
+                                ))}
                             </div>
-                            <div className="project-card">
-                                <h3>Blood Bank Management System</h3>
-                                <p>Collaborated on creating a web dashboard for the project blood bank management system to improve the exchange of 
-                                    data and to enrich scalability. Further, to enhance user experience and streamline operations using modern web technologies.</p>
-                                <div className="project-footer">
-                                    <span className="project-chip">BloodBank-Management · 2023</span>
-                                    <div className="project-links">
-                                        <button className="proj-link-btn" onClick={() => setActiveProjectImage('')}>
-                                            View Image <i className="fa-solid fa-image"></i>
-                                        </button>
+                        </section>
+
+                    </div> {/* <--- Closes left-col */}
+
+                    {/* ——— RIGHT SIDEBAR ——— */}
+                    {/* ... (Keep your existing identity-card and experience sidebar here) ... */}
+                    <div className="right-col">
+                        <div className="identity-card" ref={cardRef} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={cardStyle}>
+                            <div className="id-card-top"></div>
+                            <div className="id-card-middle">
+                                <p className="id-org">COMPUTER ENGINEER</p>
+                                <p className="id-type">CPE PORTFOLIO CARD</p>
+                            </div>
+                            <div className="id-card-bottom">
+                                <p className="id-member-label">IDEATHON FINALIST</p>
+                                <p className="id-name">ANGELO</p>
+                                <div className="id-card-row">
+                                    <p className="id-role">SOFTWARE ENGINEER</p>
+                                    <div className="id-qr">
+                                        <i className="fa-solid fa-qrcode"></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </section>
 
+                        <section className="sidebar-section">
+                            <h2 className="section-title">Experience</h2>
+                            <div className="exp-list">
+                                <div className="exp-row">
+                                    <div className="exp-box"></div>
+                                    <div className="exp-info">
+                                        <div className="exp-top-row">
+                                            <strong>Hardware Design & Algorithm</strong>
+                                            <span className="exp-yr">2026</span>
+                                        </div>
+                                        <p className="exp-company">CPE Design Project Thesis</p>
+                                    </div>
+                                </div>
+                                <div className="exp-row">
+                                    <div className="exp-box"></div>
+                                    <div className="exp-info">
+                                        <div className="exp-top-row">
+                                            <strong>Software & Hardware Lead</strong>
+                                            <span className="exp-yr">2025</span>
+                                        </div>
+                                        <p className="exp-company">Airlink Defense System</p>
+                                    </div>
+                                </div>
+                                <div className="exp-row">
+                                    <div className="exp-box"></div>
+                                    <div className="exp-info">
+                                        <div className="exp-top-row">
+                                            <strong>Project Manager</strong>
+                                            <span className="exp-yr">2022</span>
+                                        </div>
+                                        <p className="exp-company">Red Cross Software System</p>
+                                    </div>
+                                </div>
+                                <div className="exp-row">
+                                    <div className="exp-box"></div>
+                                    <div className="exp-info">
+                                        <div className="exp-top-row">
+                                            <strong>BS Computer Engineering</strong>
+                                            <span className="exp-yr">2021</span>
+                                        </div>
+                                        <p className="exp-company">University — Manila</p>
+                                    </div>
+                                </div>
+                                <div className="exp-row">
+                                    <div className="exp-box"></div>
+                                    <div className="exp-info">
+                                        <div className="exp-top-row">
+                                            <strong>Hello World! 👋</strong>
+                                            <span className="exp-yr">2021</span>
+                                        </div>
+                                        <p className="exp-company">Wrote my first line of code</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div> /* <--- Closes two-col-layout */
+            )}
+
+            {/* ===================== INDIVIDUAL PROJECT PAGE OVERLAY ===================== */}
+            {activeProjectPage && (
+                <div className="project-detail-page">
+                    {/* Sticky Header with Back Button */}
+                    <div className="project-page-header">
+                        <button className="back-btn" onClick={() => setActiveProjectPage(null)}>
+                            <i className="fa-solid fa-arrow-left"></i> Back
+                        </button>
+                    </div>
+                    
+                    <div className="project-page-content">
+                        {/* Huge Hero Title */}
+                        <h1>{activeProjectPage.title}</h1>
+                        <div className="project-chip page-chip">{activeProjectPage.id} · Case Study</div>
+                        
+                        {/* Two Column Layout for the specific project */}
+{/* Two Column Layout for the specific project */}
+                        <div className="project-page-body">
+                            
+                            {/* Left Side: Long Description & Inline Images */}
+                            <div className="project-main-desc">
+                                <h3>About the Project</h3>
+                                <p>{activeProjectPage.fullDesc}</p>
+                                
+                                {/* NEW: Render images directly on the page here */}
+                                {activeProjectPage.credentials && activeProjectPage.credentials.some(cred => cred.type === 'image') && (
+                                    <div className="case-study-gallery">
+                                        {activeProjectPage.credentials
+                                            .filter(cred => cred.type === 'image')
+                                            .map((img, index) => (
+                                                <div key={index} className="case-study-image-wrapper">
+                                                    <img src={img.src} alt={img.label} className="case-study-image" />
+                                                    <span className="image-caption">{img.label}</span>
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Right Side: Hardware & PDF Credentials */}
+                            <div className="project-sidebar">
+                                {activeProjectPage.hardware && activeProjectPage.hardware.length > 0 && (
+                                    <div className="page-section">
+                                        <h4>Hardware & Tech Stack</h4>
+                                        <ul className="hardware-list">
+                                            {activeProjectPage.hardware.map((item, index) => (
+                                                <li key={index}><i className="fa-solid fa-microchip"></i> {item}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+
+                                {/* ONLY render this section if there is a PDF document */}
+                                {activeProjectPage.credentials && activeProjectPage.credentials.some(cred => cred.type === 'pdf') && (
+                                    <div className="page-section mt-4">
+                                        <h4>Project Documents</h4>
+                                        <div className="credentials-container page-credentials">
+                                            {activeProjectPage.credentials
+                                                .filter(cred => cred.type === 'pdf')
+                                                .map((cred, index) => (
+                                                    <div key={index} className="credential-asset-card">
+                                                        <div className="asset-icon">
+                                                            <i className="fa-regular fa-file-pdf pdf-color"></i>
+                                                        </div>
+                                                        <div className="asset-info">
+                                                            <span>{cred.label}</span>
+                                                            <a href={cred.src} target="_blank" rel="noopener noreferrer" className="asset-view-link">
+                                                                Open Document <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
-
-                {/* ——— RIGHT SIDEBAR ——— */}
-                <div className="right-col">
-
-                    {/* DARK IDENTITY CARD */}
-<div className="identity-card" ref={cardRef}
-    onMouseMove={handleMouseMove}
-    onMouseLeave={handleMouseLeave}
-    style={cardStyle}
->
-    <div className="id-card-top">
-     { /*  <span className="id-cursor">&gt;_</span> */}
-     </div>
-     <div className="id-card-middle">
-            <p className="id-org">COMPUTER ENGINEER</p>
-            <p className="id-type">CPE PORTFOLIO CARD</p>
-     </div>
-     <div className="id-card-bottom">
-        <p className="id-member-label">IDEATHON FINALIST</p>
-        <p className="id-name">ANGELO</p>
-        <div className="id-card-row">
-            <p className="id-role">SOFTWARE ENGINEER</p>
-            <div className="id-qr">
-                <i className="fa-solid fa-qrcode"></i>
-            </div>
-        </div>
-    </div>
-</div>
-
-                    {/* EXPERIENCE SIDEBAR TIMELINE */}
-                    <section className="sidebar-section">
-                        <h2 className="section-title">Experience</h2>
-                        <div className="exp-list">
-
-                            <div className="exp-row">
-                                <div className="exp-box"></div>
-                                <div className="exp-info">
-                                    <div className="exp-top-row">
-                                        <strong>Hardware Design & Algorithm</strong>
-                                        <span className="exp-yr">2026</span>
-                                    </div>
-                                    <p className="exp-company">CPE Design Project Thesis</p>
-                                </div>
-                            </div>
-
-                            <div className="exp-row">
-                                <div className="exp-box"></div>
-                                <div className="exp-info">
-                                    <div className="exp-top-row">
-                                        <strong>Software & Hardware Lead</strong>
-                                        <span className="exp-yr">2025</span>
-                                    </div>
-                                    <p className="exp-company">Airlink Defense System</p>
-                                </div>
-                            </div>
-
-                            <div className="exp-row">
-                                <div className="exp-box"></div>
-                                <div className="exp-info">
-                                    <div className="exp-top-row">
-                                        <strong>Project Manager</strong>
-                                        <span className="exp-yr">2022</span>
-                                    </div>
-                                    <p className="exp-company">Red Cross Software System</p>
-                                </div>
-                            </div>
-
-                            <div className="exp-row">
-                                <div className="exp-box"></div>
-                                <div className="exp-info">
-                                    <div className="exp-top-row">
-                                        <strong>BS Computer Engineering</strong>
-                                        <span className="exp-yr">2021</span>
-                                    </div>
-                                    <p className="exp-company">University — Manila</p>
-                                </div>
-                            </div>
-
-                            <div className="exp-row">
-                                <div className="exp-box"></div>
-                                <div className="exp-info">
-                                    <div className="exp-top-row">
-                                        <strong>Hello World! 👋</strong>
-                                        <span className="exp-yr">2021</span>
-                                    </div>
-                                    <p className="exp-company">Wrote my first line of code</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </section>
-                </div>
-            </div>
+            )}
+            {/* ========================================================================= */}
 
             <hr className="section-divider" />
 
@@ -595,6 +672,6 @@ export default function Portfolio() {
                     </div>
                 </div>
             )}
-        </div>
+        </div> /* <-- This is the final closing div of your portfolio */
     );
 }
