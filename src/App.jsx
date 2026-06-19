@@ -140,7 +140,7 @@ export default function Portfolio() {
             const apiKey = import.meta.env.VITE_GROQ_API_KEY;
             const url = "https://api.groq.com/openai/v1/chat/completions";
 
-            // === THE CHATBOT'S CHEAT SHEET ===
+            // === THE CHATBOT'S SHEET ===
             const portfolioContext = `
             You are Angelo's AI Assistant. You represent John Angelo Concepcion, a Computer Engineer and Software Engineer from Manila, Philippines. 
             Rule: Answer strictly based on the following context. If you do not know the answer, tell the user to email johnangeloconcepcion8@gmail.com. Keep answers concise, friendly, and professional (1-2 sentences max).
@@ -255,7 +255,7 @@ export default function Portfolio() {
             <header className="profile-header">
                 {/* Square profile photo — hover swaps to Gallery4 */}
                 <div className="avatar-display-container">
-                    <img src="/Me.png" className="avatar-display-container" alt="Profile" />
+                    <img src="/Formal.png" className="avatar-display-container" alt="Profile" />
                   {/*}  <img 
                         src="Me.jpg" 
                         className={`avatar-asset ${avatarState === 'light' ? 'visible' : 'hidden'}`} 
@@ -362,20 +362,20 @@ export default function Portfolio() {
                                 <h3 className="stack-label">Frontend</h3>
                                 <div className="stack-pills">
                                     <span>React</span><span>JavaScript</span>
-                                    <span>TypeScript</span><span>Flutter</span>
+                                    <span>Flutter</span><span>React Native</span>
                                 </div>
                             </div>
                             <div className="stack-group">
                                 <h3 className="stack-label">Backend</h3>
                                 <div className="stack-pills">
                                     <span>PHP</span><span>Laravel</span>
-                                    <span>Node.js</span><span>Python</span>
+                                    <span>Node.js</span><span>Java</span>
                                 </div>
                             </div>
                             <div className="stack-group">
                                 <h3 className="stack-label">DevOps & Cloud</h3>
                                 <div className="stack-pills">
-                                    <span>Git</span>
+                                    <span>GitHub</span>
                                     <span>Firebase</span><span>MySQL</span>
                                 </div>
                             </div>
