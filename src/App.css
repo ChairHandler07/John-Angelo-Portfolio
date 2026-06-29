@@ -1549,6 +1549,11 @@ body.dark-mode .project-page-header {
   opacity: 0.2;
 }
 
+@keyframes snowFall {
+  from { transform: translateY(-10vh) translateX(0); }
+  to { transform: translateY(105vh) translateX(25px); }
+}
+
 /* ================================================================
    21. RESPONSIVE BREAKPOINTS
    ================================================================ */
