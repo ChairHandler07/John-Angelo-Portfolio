@@ -1,41 +1,21 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import ProfileHeader from './components/ProfileHeader';
-import AboutSection from './components/AboutSection';
-import TechStack from './components/TechStack';
-import ProjectsSection from './components/ProjectsSection';
+import { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import MainLayout from './layouts/MainLayout';
+import HomePage from './pages/HomePage';
+import ProjectsPage from './pages/ProjectsPage';
 import ProjectDetailPage from './components/ProjectDetailPage';
-import IdentityCard from './components/IdentityCard';
-import ExperienceTimeline from './components/ExperienceTimeline';
-import Gallery from './components/Gallery';
-import Footer from './components/Footer';
-import Chatbot from './components/Chatbot';
-import ImageModal from './components/ImageModal';
+import ExperiencePage from './pages/ExperiencePage';
+import TechStackPage from './pages/TechStackPage';
+import VisualArchivePage from './pages/VisualArchivePage';
+import CertificationPage from './pages/CertificationPage';
 import './App.css';
 
-export default function Portfolio() {
-  const [isDarkMode, setIsDarkMode] = useState(() => {
+export default function App() {
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
     const saved = localStorage.getItem('theme') === 'dark';
     if (saved) document.body.classList.add('dark-mode');
-    return saved;
-  });
-  const [activeProjectId, setActiveProjectId] = useState(null);
-  const [activeImage, setActiveImage] = useState(null);
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const mainRef = useRef(null);
-
-  const toggleTheme = useCallback(() => {
-    setIsDarkMode(prev => {
-      const next = !prev;
-      if (next) {
-        document.body.classList.add('dark-mode');
-        localStorage.setItem('theme', 'dark');
-      } else {
-        document.body.classList.remove('dark-mode');
-        localStorage.setItem('theme', 'light');
-      }
-      return next;
-    });
   }, []);
 
   useEffect(() => {
@@ -69,62 +49,20 @@ export default function Portfolio() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const openProject = useCallback((project) => {
-    setActiveProjectId(project.id);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
-
-  const closeProject = useCallback(() => {
-    setActiveProjectId(null);
-  }, []);
-
   return (
-    <div className="portfolio-wrapper" ref={mainRef}>
+    <BrowserRouter>
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }}></div>
-
-      {!activeProjectId && (
-        <>
-          <ProfileHeader isDarkMode={isDarkMode} onToggleTheme={toggleTheme} />
-
-          <hr className="section-divider" />
-
-          <div className="two-col-layout">
-            <div className="left-col">
-              <AboutSection />
-              <hr className="section-divider" />
-              <TechStack />
-              <hr className="section-divider" />
-              <ProjectsSection onProjectClick={openProject} />
-            </div>
-
-            <aside className="right-col">
-              <IdentityCard />
-              <ExperienceTimeline />
-            </aside>
-          </div>
-
-          <hr className="section-divider" />
-
-          <Gallery onImageClick={setActiveImage} />
-
-          <hr className="section-divider" />
-
-          <Footer />
-        </>
-      )}
-
-      {activeProjectId && (
-        <ProjectDetailPage
-          projectId={activeProjectId}
-          onBack={closeProject}
-        />
-      )}
-
-      <Chatbot isOpen={isChatOpen} onToggle={() => setIsChatOpen(prev => !prev)} />
-
-      {activeImage && (
-        <ImageModal src={activeImage} onClose={() => setActiveImage(null)} />
-      )}
-    </div>
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/projects/:projectId" element={<ProjectDetailPage />} />
+          <Route path="/experience" element={<ExperiencePage />} />
+          <Route path="/tech-stack" element={<TechStackPage />} />
+          <Route path="/visual-archive" element={<VisualArchivePage />} />
+          <Route path="/certification" element={<CertificationPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }

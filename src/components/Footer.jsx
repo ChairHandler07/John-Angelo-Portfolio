@@ -6,18 +6,6 @@ export default function Footer() {
         <p className="footer-tagline">Computer Engineer &middot; Software Engineer</p>
       </div>
       <div className="footer-col">
-        <h4>Connect</h4>
-        <a href="https://www.linkedin.com/in/john-angelo-concepcion-09051b381" target="_blank" rel="noreferrer">
-          <i className="fa-brands fa-linkedin"></i> LinkedIn
-        </a>
-        <a href="mailto:johnangeloconcepcion8@gmail.com">
-          <i className="fa-solid fa-envelope"></i> Email
-        </a>
-        <a href="https://github.com/ChairHandler07" target="_blank" rel="noreferrer">
-          <i className="fa-brands fa-github"></i> GitHub
-        </a>
-      </div>
-      <div className="footer-col">
         <h4>Contact</h4>
         <p>johnangeloconcepcion8<br />@gmail.com</p>
         <p>Manila, Philippines</p>

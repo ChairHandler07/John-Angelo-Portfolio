@@ -1,3 +1,5 @@
+import { useParams, useNavigate } from 'react-router-dom';
+
 const PROJECTS_DATA = [
   {
     id: "airlink",
@@ -41,15 +43,27 @@ const PROJECTS_DATA = [
   }
 ];
 
-export default function ProjectDetailPage({ projectId, onBack }) {
+export default function ProjectDetailPage() {
+  const { projectId } = useParams();
+  const navigate = useNavigate();
   const project = PROJECTS_DATA.find(p => p.id === projectId);
-  if (!project) return null;
+
+  if (!project) {
+    return (
+      <div className="page-container">
+        <p>Project not found.</p>
+        <button className="btn-primary" onClick={() => navigate('/projects')}>
+          Back to Projects
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="project-detail-page">
       <div className="project-page-header">
-        <button className="back-btn" onClick={onBack}>
-          <i className="fa-solid fa-arrow-left"></i> Back to Portfolio
+        <button className="back-btn" onClick={() => navigate('/projects')}>
+          <i className="fa-solid fa-arrow-left"></i> Back to Projects
         </button>
       </div>
 
