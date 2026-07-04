@@ -246,6 +246,26 @@ p:last-child { margin-bottom: 0; }
   text-transform: lowercase;
 }
 
+.sidebar-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-primary);
+  padding: 0.6rem;
+  font-size: 1rem;
+}
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 150;
+  animation: fadeIn 0.2s ease;
+}
+
 .sidebar-nav {
   display: flex;
   flex-direction: column;
@@ -2530,17 +2550,18 @@ body.dark-mode .char-wrong {
 @media (max-width: 1024px) {
   .sidebar {
     width: 3.5rem;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
   }
 
-  .sidebar-brand {
-    padding: 0.75rem 0.5rem;
-    text-align: center;
+  .sidebar.open {
+    width: 14rem;
+    z-index: 200;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12);
   }
 
-  .sidebar-name-full {
-    font-size: 0.5rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  .sidebar-toggle {
+    display: flex;
+    margin-bottom: 4px;
   }
 
   .sidebar-nav {
@@ -2554,6 +2575,12 @@ body.dark-mode .char-wrong {
     font-size: 0;
   }
 
+  .sidebar.open .sidebar-link {
+    justify-content: flex-start;
+    padding: 0.55rem 0.625rem;
+    font-size: 0.7rem;
+  }
+
   .sidebar-link i {
     font-size: 1rem;
     width: auto;
@@ -2561,11 +2588,33 @@ body.dark-mode .char-wrong {
 
   .sidebar-link span { display: none; }
 
+  .sidebar.open .sidebar-link span { display: inline; }
+
   .sidebar-link.active::before { display: none; }
 
   .sidebar-typewriter-area { display: none; }
   .sidebar-controls { display: none; }
   .sidebar-connect { display: none; }
+
+  .sidebar.open .sidebar-typewriter-area,
+  .sidebar.open .sidebar-controls,
+  .sidebar.open .sidebar-connect {
+    display: flex;
+  }
+
+  .sidebar.open .sidebar-controls {
+    flex-direction: row;
+    padding: 0.5rem 0.625rem;
+  }
+
+  .sidebar.open .sidebar-connect {
+    flex-direction: column;
+    padding: 0.375rem 0.5rem 0.375rem;
+  }
+
+  .sidebar.open .sidebar-typewriter-area {
+    display: block;
+  }
 
   .main-content {
     margin-left: 3rem;
@@ -2721,6 +2770,10 @@ body.dark-mode .char-wrong {
 @media (max-width: 480px) {
   .sidebar {
     width: 2.5rem;
+  }
+
+  .sidebar.open {
+    width: calc(100vw - 2rem);
   }
 
   .main-content {
