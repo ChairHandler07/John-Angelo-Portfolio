@@ -3,8 +3,13 @@ import { useEffect, useRef } from 'react';
 const CERTIFICATIONS = [
   {
     id: '3cc79060-6acf-48d6-a970-ea006c4f342e',
-    title: 'Badge',
-    issuer: 'Credly',
+    title: 'CCNAv7: Introduction to IoT',
+    issuer: 'Cisco',
+  },
+  {
+    id: '95cf73e0-9a83-4803-8ee3-66e4e87e4177',
+    title: 'CCNAv7: Python Essentials 2',
+    issuer: 'Cisco',
   },
 ];
 
@@ -12,7 +17,7 @@ export default function CertificationPage() {
   return (
     <div className="page-container">
       <div className="page-header">
-        <h1 className="page-title">Certifications</h1>
+        <h1 className="page-title">certifications</h1>
         <p className="page-subtitle">Professional certifications and credentials I've earned.</p>
       </div>
 

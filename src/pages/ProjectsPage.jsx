@@ -46,7 +46,7 @@ export default function ProjectsPage() {
   return (
     <div className="page-container">
       <div className="page-header">
-        <h1 className="page-title">Projects</h1>
+        <h1 className="page-title">projects</h1>
         <p className="page-subtitle">A collection of software, hardware, and IoT projects I've built.</p>
       </div>
 

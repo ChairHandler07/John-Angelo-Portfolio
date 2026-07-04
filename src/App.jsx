@@ -19,27 +19,6 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const date = new Date();
-    const month = date.getMonth();
-    if (month >= 8) {
-      const flakes = [];
-      for (let i = 0; i < 60; i++) {
-        const snow = document.createElement("div");
-        snow.className = "snowflake";
-        const size = Math.random() * 4 + 2;
-        snow.style.width = size + "px";
-        snow.style.height = size + "px";
-        snow.style.left = Math.random() * 100 + "vw";
-        snow.style.animation = `snowFall ${Math.random() * 6 + 4}s linear infinite`;
-        snow.style.animationDelay = Math.random() * 5 + "s";
-        document.body.appendChild(snow);
-        flakes.push(snow);
-      }
-      return () => flakes.forEach(s => s.remove());
-    }
-  }, []);
-
-  useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;

@@ -35,7 +35,7 @@ export default function ExperiencePage() {
   return (
     <div className="page-container">
       <div className="page-header">
-        <h1 className="page-title">Experience</h1>
+        <h1 className="page-title">experience</h1>
         <p className="page-subtitle">My professional journey and key milestones.</p>
       </div>
 

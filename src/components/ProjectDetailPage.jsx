@@ -8,7 +8,7 @@ const PROJECTS_DATA = [
     hardware: ["ESP32 Development Module", "ATECC608a Crypto-Chip", "Receiver-side Architecture"],
     credentials: [
       { type: "image", label: "Courtesy Call from the President", src: "/Gallery2.png" },
-      { type: "image", label: "Embedded System Project", src: "airlink_hardware.jpg" },
+      { type: "image", label: "Embedded System Project", src: "/airlink_hardware.jpg" },
       { type: "pdf", label: "AFP Project Documentation", src: "AFP.pdf" }
     ]
   },
@@ -75,7 +75,7 @@ export default function ProjectDetailPage() {
 
         <div className="project-page-body">
           <div className="project-main-desc">
-            <h3>Project Overview</h3>
+            <h3>overview</h3>
             <p>{project.fullDesc}</p>
 
             {project.credentials && project.credentials.some(c => c.type === 'image') && (
@@ -95,7 +95,7 @@ export default function ProjectDetailPage() {
           <aside className="project-sidebar">
             {project.hardware && (
               <div className="page-section">
-                <h4>Tech Stack</h4>
+                <h4>Stack</h4>
                 <ul className="hardware-list">
                   {project.hardware.map((item, i) => (
                     <li key={i}>
@@ -116,7 +116,7 @@ export default function ProjectDetailPage() {
                     .map((cred, i) => (
                       <a key={i} href={cred.src} target="_blank" rel="noopener noreferrer" className="credential-link">
                         <div className="credential-icon">
-                          <i className="fa-regular fa-file-pdf pdf-color"></i>
+                          <i className="fa-regular fa-file-lines pdf-color"></i>
                         </div>
                         <div className="credential-info">
                           <span className="credential-label">{cred.label}</span>
@@ -131,7 +131,7 @@ export default function ProjectDetailPage() {
             <div className="page-section page-cta">
               <h4>Interested in this project?</h4>
               <a href="mailto:johnangeloconcepcion8@gmail.com" className="btn-primary">
-                <i className="fa-regular fa-envelope"></i> Request More Details
+                <i className="fa-regular fa-envelope"></i> Request Details
               </a>
             </div>
           </aside>

@@ -12,7 +12,7 @@ export default function VisualArchivePage() {
   return (
     <div className="page-container">
       <div className="page-header">
-        <h1 className="page-title">Visual Archive</h1>
+        <h1 className="page-title">archive</h1>
         <p className="page-subtitle">A curated collection of photos and visuals from projects and events.</p>
       </div>
 

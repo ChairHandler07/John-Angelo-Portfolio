@@ -8,7 +8,6 @@ export default function ProfileHeader() {
         <div className="hero-top">
           <h1 className="hero-name">
             John Angelo Concepcion
-            <i className="fa-solid fa-circle-check verified-icon"></i>
           </h1>
           <p className="hero-location">
             <i className="fa-solid fa-location-dot"></i> Manila, Philippines
@@ -34,7 +33,7 @@ export default function ProfileHeader() {
         </div>
         <div className="hero-actions">
           <a href="mailto:johnangeloconcepcion8@gmail.com" className="btn-primary">
-            <i className="fa-regular fa-envelope"></i> Send Email
+            <i className="fa-regular fa-envelope"></i> Email
           </a>
           <a
             href="https://www.linkedin.com/in/john-angelo-concepcion-09051b381"

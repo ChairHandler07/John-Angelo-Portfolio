@@ -69,14 +69,7 @@ export default function Chatbot({ isOpen, onToggle }) {
     }
   };
 
-  if (!isOpen) {
-    return (
-      <button className="chatbot-fab" onClick={onToggle}>
-        <i className="fa-solid fa-comment-dots"></i>
-        <span className="fab-label">Chat with Angelo</span>
-      </button>
-    );
-  }
+  if (!isOpen) return null;
 
   return (
     <div className="chat-container">

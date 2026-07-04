@@ -1,15 +1,15 @@
 const STACK = {
-  Frontend: ['React', 'JavaScript', 'React Native', 'HTML5', 'CSS3'],
+  Frontend: ['React', 'JavaScript', 'React Native', 'HTML', 'CSS', 'JavaScript', 'Bootstrap'],
   Backend: ['PHP', 'Laravel', 'Node.js', 'Python', 'Java', 'REST APIs'],
-  'DevOps & Cloud': ['GitHub', 'Firebase', 'MySQL', 'Vite', 'Docker'],
-  'Hardware & IoT': ['ESP32', 'Arduino', 'MQ-6 Sensor', 'Load Cell', 'ATECC608a']
+  'DevOps & Cloud': ['GitHub', 'Firebase', 'MySQL', 'Vite'],
+  'Hardware & IoT': ['ESP32', 'Arduino']
 };
 
 export default function TechStackPage() {
   return (
     <div className="page-container">
       <div className="page-header">
-        <h1 className="page-title">Technical Proficiency</h1>
+        <h1 className="page-title">Tech Stack</h1>
         <p className="page-subtitle">Technologies and tools I work with across the full stack.</p>
       </div>
 

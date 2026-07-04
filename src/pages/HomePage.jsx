@@ -55,96 +55,98 @@ const GALLERY_PREVIEWS = [
 export default function HomePage() {
   return (
     <div className="home-page">
-      <ProfileHeader />
+      <div className="portfolio-wrapper">
+        <ProfileHeader />
 
-      <div className="home-categories">
-        <div className="home-category-row">
-          <section className="home-card projects-preview">
-            <div className="home-card-header">
-              <h2><i className="fa-solid fa-code"></i> Projects</h2>
-              <Link to="/projects" className="home-link">View All <i className="fa-solid fa-arrow-right"></i></Link>
-            </div>
-            <div className="home-card-body">
-              {PROJECT_PREVIEWS.map((p) => (
-                <Link to="/projects" key={p.id} className="preview-item">
-                  <span className={`preview-badge ${p.category}`}>{p.category}</span>
-                  <div className="preview-info">
-                    <strong>{p.title}</strong>
-                    <p>{p.shortDesc}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-
-          <section className="home-card experience-preview">
-            <div className="home-card-header">
-              <h2><i className="fa-solid fa-briefcase"></i> Experience</h2>
-              <Link to="/experience" className="home-link">Full History <i className="fa-solid fa-arrow-right"></i></Link>
-            </div>
-            <div className="home-card-body">
-              {EXPERIENCE_PREVIEWS.map((exp, i) => (
-                <Link to="/experience" key={i} className="preview-item preview-item-row">
-                  <div className="preview-year">{exp.year}</div>
-                  <div className="preview-info">
-                    <strong>{exp.title}</strong>
-                    <p>{exp.company}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-        </div>
-
-        <div className="home-category-row">
-          <section className="home-card tech-preview">
-            <div className="home-card-header">
-              <h2><i className="fa-solid fa-microchip"></i> Tech Stack</h2>
-              <Link to="/tech-stack" className="home-link">See Full Stack <i className="fa-solid fa-arrow-right"></i></Link>
-            </div>
-            <div className="home-card-body">
-              <div className="preview-pills">
-                {TECH_PREVIEWS.map((tech) => (
-                  <span key={tech} className="pill">{tech}</span>
-                ))}
+        <div className="home-categories">
+          <div className="home-category-row">
+            <section className="home-card projects-preview">
+              <div className="home-card-header">
+                <span className="section-title"><span className="section-number">01</span> projects</span>
+                <Link to="/projects" className="home-link">View All <i className="fa-solid fa-arrow-right"></i></Link>
               </div>
-            </div>
-          </section>
-
-          <section className="home-card visual-preview">
-            <div className="home-card-header">
-              <h2><i className="fa-solid fa-images"></i> Visual Archive</h2>
-              <Link to="/visual-archive" className="home-link">View All <i className="fa-solid fa-arrow-right"></i></Link>
-            </div>
-            <div className="home-card-body">
-              <div className="preview-thumbs">
-                {GALLERY_PREVIEWS.map((src, i) => (
-                  <Link to="/visual-archive" key={i} className="thumb-link">
-                    <img src={src} alt={`Gallery ${i + 1}`} />
+              <div className="home-card-body">
+                {PROJECT_PREVIEWS.map((p) => (
+                  <Link to="/projects" key={p.id} className="preview-item">
+                    <span className={`preview-badge ${p.category}`}>{p.category}</span>
+                    <div className="preview-info">
+                      <strong>{p.title}</strong>
+                      <p>{p.shortDesc}</p>
+                    </div>
                   </Link>
                 ))}
               </div>
-            </div>
-          </section>
-        </div>
+            </section>
 
-        <div className="home-category-row home-category-single">
-          <section className="home-card cert-preview">
-            <div className="home-card-header">
-              <h2><i className="fa-solid fa-certificate"></i> Certification</h2>
-              <Link to="/certification" className="home-link">All Certifications <i className="fa-solid fa-arrow-right"></i></Link>
-            </div>
-            <div className="home-card-body">
-              <Link to="/certification" className="preview-cert-badge">
-                <i className="fa-solid fa-award"></i>
-                <span>View my professional certifications</span>
-                <i className="fa-solid fa-chevron-right"></i>
-              </Link>
-            </div>
-          </section>
+            <section className="home-card experience-preview">
+              <div className="home-card-header">
+                <span className="section-title"><span className="section-number">02</span> experience</span>
+                <Link to="/experience" className="home-link">Full History <i className="fa-solid fa-arrow-right"></i></Link>
+              </div>
+              <div className="home-card-body">
+                {EXPERIENCE_PREVIEWS.map((exp, i) => (
+                  <Link to="/experience" key={i} className="preview-item preview-item-row">
+                    <div className="preview-year">{exp.year}</div>
+                    <div className="preview-info">
+                      <strong>{exp.title}</strong>
+                      <p>{exp.company}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          </div>
+
+          <div className="home-category-row">
+            <section className="home-card tech-preview">
+              <div className="home-card-header">
+                <span className="section-title"><span className="section-number">03</span> tech stack</span>
+                <Link to="/tech-stack" className="home-link">See Full Stack <i className="fa-solid fa-arrow-right"></i></Link>
+              </div>
+              <div className="home-card-body">
+                <div className="preview-pills">
+                  {TECH_PREVIEWS.map((tech) => (
+                    <span key={tech} className="pill">{tech}</span>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            <section className="home-card visual-preview">
+              <div className="home-card-header">
+                <span className="section-title"><span className="section-number">04</span> archive</span>
+                <Link to="/visual-archive" className="home-link">View All <i className="fa-solid fa-arrow-right"></i></Link>
+              </div>
+              <div className="home-card-body">
+                <div className="preview-thumbs">
+                  {GALLERY_PREVIEWS.map((src, i) => (
+                    <Link to="/visual-archive" key={i} className="thumb-link">
+                      <img src={src} alt={`Gallery ${i + 1}`} />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <div className="home-category-row home-category-single">
+            <section className="home-card cert-preview">
+              <div className="home-card-header">
+                <span className="section-title"><span className="section-number">05</span> certification</span>
+                <Link to="/certification" className="home-link">All Certifications <i className="fa-solid fa-arrow-right"></i></Link>
+              </div>
+              <div className="home-card-body">
+                <Link to="/certification" className="preview-cert-badge">
+                  <i className="fa-solid fa-award"></i>
+                  <span>View my professional certifications</span>
+                  <i className="fa-solid fa-chevron-right"></i>
+                </Link>
+              </div>
+            </section>
+          </div>
         </div>
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 }
