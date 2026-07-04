@@ -49,7 +49,6 @@ export default function Typewriter() {
   const [showTest, setShowTest] = useState(false);
   const [sentence, setSentence] = useState('');
   const [typed, setTyped] = useState('');
-  const [startTime, setStartTime] = useState(null);
   const [elapsed, setElapsed] = useState(0);
   const [hasStarted, setHasStarted] = useState(false);
   const [finished, setFinished] = useState(false);
@@ -58,11 +57,28 @@ export default function Typewriter() {
 
   const inputRef = useRef(null);
   const timerRef = useRef(null);
+  const startTimeRef = useRef(null);
+
+  const finishTest = useCallback((val) => {
+    clearInterval(timerRef.current);
+    const totalMs = Date.now() - (startTimeRef.current || Date.now());
+    const mins = totalMs / 60000;
+    const words = sentence.split(' ').length;
+    const calculatedWpm = Math.round(words / mins);
+    let correct = 0;
+    for (let i = 0; i < sentence.length && i < val.length; i++) {
+      if (val[i] === sentence[i]) correct++;
+    }
+    const acc = Math.round((correct / sentence.length) * 100);
+    setWpm(calculatedWpm);
+    setAccuracy(acc);
+    setFinished(true);
+    setElapsed(totalMs);
+  }, [sentence]);
 
   const startTest = useCallback(() => {
     setSentence(pickSentence());
     setTyped('');
-    setStartTime(null);
     setElapsed(0);
     setHasStarted(false);
     setFinished(false);
@@ -80,53 +96,32 @@ export default function Typewriter() {
     clearInterval(timerRef.current);
   }, []);
 
-  const handleKeyDown = useCallback((e) => {
-    if (e.key === 'Escape') {
-      backToIdle();
-      return;
-    }
+  const handleChange = useCallback((e) => {
     if (finished) return;
-    if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
-      e.preventDefault();
-      if (!hasStarted) {
-        setHasStarted(true);
-        const now = Date.now();
-        setStartTime(now);
-        timerRef.current = setInterval(() => {
-          setElapsed(Date.now() - now);
-        }, 50);
-      }
-      setTyped(prev => {
-        const next = prev + e.key;
-        if (next.length >= sentence.length) {
-          const end = Date.now();
-          clearInterval(timerRef.current);
-          const totalMs = end - (startTime || end);
-          const mins = totalMs / 60000;
-          const words = sentence.split(' ').length;
-          const calculatedWpm = Math.round(words / mins);
-          let correct = 0;
-          for (let i = 0; i < sentence.length && i < next.length; i++) {
-            if (next[i] === sentence[i]) correct++;
-          }
-          const acc = Math.round((correct / sentence.length) * 100);
-          setWpm(calculatedWpm);
-          setAccuracy(acc);
-          setFinished(true);
-          setElapsed(totalMs);
-          return next;
-        }
-        return next;
-      });
+    const val = e.target.value.slice(0, sentence.length);
+
+    if (!hasStarted && val.length > 0) {
+      setHasStarted(true);
+      startTimeRef.current = Date.now();
+      timerRef.current = setInterval(() => {
+        setElapsed(Date.now() - startTimeRef.current);
+      }, 50);
     }
-    if (e.key === 'Backspace') {
-      setTyped(prev => prev.slice(0, -1));
+
+    setTyped(val);
+
+    if (val.length >= sentence.length) {
+      finishTest(val);
     }
-  }, [hasStarted, startTime, sentence, finished, backToIdle]);
+  }, [hasStarted, sentence, finished, finishTest]);
+
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === 'Escape') backToIdle();
+  }, [backToIdle]);
 
   useEffect(() => {
     if (showTest && inputRef.current) {
-      inputRef.current.focus();
+      setTimeout(() => inputRef.current?.focus(), 100);
     }
   }, [showTest]);
 
@@ -172,10 +167,25 @@ export default function Typewriter() {
 
       {showTest && createPortal(
         <div className="typing-test-overlay" onClick={backToIdle}>
-          <div className="typing-test-modal" onClick={e => e.stopPropagation()} onKeyDown={handleKeyDown} tabIndex={0} ref={inputRef}>
+          <div className="typing-test-modal" onClick={() => { if (!finished) inputRef.current?.focus(); }}>
+            <input
+              ref={inputRef}
+              type="text"
+              className="typing-test-input"
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck="false"
+              inputMode="text"
+              value={typed}
+              onChange={handleChange}
+              onKeyDown={handleKeyDown}
+              onFocus={(e) => e.target.setSelectionRange(e.target.value.length, e.target.value.length)}
+            />
+
             <div className="typing-test-header">
               <span className="typing-test-label">typing test</span>
-              <button className="typing-test-close" onClick={backToIdle} aria-label="Close">
+              <button className="typing-test-close" onClick={(e) => { e.stopPropagation(); backToIdle(); }} aria-label="Close">
                 <i className="fa-solid fa-xmark"></i>
               </button>
             </div>
@@ -194,13 +204,13 @@ export default function Typewriter() {
                   <span className="result-value">{accuracy}%</span>
                   <span className="result-label">accuracy</span>
                 </div>
-                <button className="typing-test-retry" onClick={startTest}>
+                <button className="typing-test-retry" onClick={(e) => { e.stopPropagation(); startTest(); }}>
                   <i className="fa-solid fa-rotate-right"></i> try again
                 </button>
               </div>
             ) : (
               <>
-                <div className="typing-test-sentence">
+                <div className="typing-test-sentence" onClick={() => inputRef.current?.focus()}>
                   {sentence.split('').map((char, i) => {
                     let cls = '';
                     if (i < typed.length) cls = typed[i] === char ? 'char-correct' : 'char-wrong';

@@ -2299,6 +2299,17 @@ p:last-child { margin-bottom: 0; }
    28. TYPING TEST (modal overlay)
    ================================================================ */
 
+.typing-test-input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  font-size: 16px;
+}
+
 .typing-test-overlay {
   position: fixed;
   inset: 0;
@@ -2557,6 +2568,7 @@ body.dark-mode .char-wrong {
     width: 14rem;
     z-index: 200;
     box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12);
+    padding-bottom: 2rem;
   }
 
   .sidebar-toggle {
