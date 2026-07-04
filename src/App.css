@@ -2596,6 +2596,10 @@ body.dark-mode .char-wrong {
   .sidebar-controls { display: none; }
   .sidebar-connect { display: none; }
 
+  .sidebar.open .sidebar-nav {
+    flex: 0 1 auto;
+  }
+
   .sidebar.open .sidebar-typewriter-area,
   .sidebar.open .sidebar-controls,
   .sidebar.open .sidebar-connect {
