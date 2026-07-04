@@ -66,10 +66,13 @@ export default function Typewriter() {
     const words = sentence.split(' ').length;
     const calculatedWpm = Math.round(words / mins);
     let correct = 0;
-    for (let i = 0; i < sentence.length && i < val.length; i++) {
-      if (val[i] === sentence[i]) correct++;
+    const norm = (s) => s.normalize('NFC').replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"').replace(/\u00A0/g, ' ');
+    const ns = norm(sentence);
+    const nv = norm(val);
+    for (let i = 0; i < ns.length && i < nv.length; i++) {
+      if (nv[i] === ns[i]) correct++;
     }
-    const acc = Math.round((correct / sentence.length) * 100);
+    const acc = Math.round((correct / ns.length) * 100);
     setWpm(calculatedWpm);
     setAccuracy(acc);
     setFinished(true);
@@ -177,6 +180,7 @@ export default function Typewriter() {
               autoCapitalize="off"
               spellCheck="false"
               inputMode="text"
+              data-form-type="other"
               value={typed}
               onChange={handleChange}
               onKeyDown={handleKeyDown}

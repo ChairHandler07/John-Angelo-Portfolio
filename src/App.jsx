@@ -8,6 +8,7 @@ import ExperiencePage from './pages/ExperiencePage';
 import TechStackPage from './pages/TechStackPage';
 import VisualArchivePage from './pages/VisualArchivePage';
 import CertificationPage from './pages/CertificationPage';
+import AchievementsPage from './pages/AchievementsPage';
 import './App.css';
 
 export default function App() {
@@ -40,6 +41,7 @@ export default function App() {
           <Route path="/tech-stack" element={<TechStackPage />} />
           <Route path="/visual-archive" element={<VisualArchivePage />} />
           <Route path="/certification" element={<CertificationPage />} />
+          <Route path="/achievements" element={<AchievementsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

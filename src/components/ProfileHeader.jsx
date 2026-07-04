@@ -19,18 +19,6 @@ export default function ProfileHeader() {
           and full-stack development. Passionate about building scalable solutions across the entire
           tech stack — from IoT hardware to cloud-backed web applications.
         </p>
-        <div className="hero-badge-row">
-          <a
-            href="https://www.facebook.com/share/p/17ud3a6m6D/?mibextid=wwXIfr"
-            target="_blank"
-            rel="noreferrer"
-            className="champion-badge"
-          >
-            <i className="fa-solid fa-trophy"></i>
-            Ideathon 2025 Finalist
-            <i className="fa-solid fa-chevron-right badge-arrow"></i>
-          </a>
-        </div>
         <div className="hero-actions">
           <a href="mailto:johnangeloconcepcion8@gmail.com" className="btn-primary">
             <i className="fa-regular fa-envelope"></i> Email

@@ -129,7 +129,7 @@ export default function HomePage() {
             </section>
           </div>
 
-          <div className="home-category-row home-category-single">
+          <div className="home-category-row">
             <section className="home-card cert-preview">
               <div className="home-card-header">
                 <span className="section-title"><span className="section-number">05</span> certification</span>
@@ -137,9 +137,19 @@ export default function HomePage() {
               </div>
               <div className="home-card-body">
                 <Link to="/certification" className="preview-cert-badge">
-                  <i className="fa-solid fa-award"></i>
-                  <span>View my professional certifications</span>
-                  <i className="fa-solid fa-chevron-right"></i>
+                  <span>certifications</span>
+                </Link>
+              </div>
+            </section>
+
+            <section className="home-card ideathon-preview">
+              <div className="home-card-header">
+                <span className="section-title"><span className="section-number">06</span> achievements</span>
+                <Link to="/achievements" className="home-link">View All <i className="fa-solid fa-arrow-right"></i></Link>
+              </div>
+              <div className="home-card-body">
+                <Link to="/achievements" className="preview-cert-badge">
+                  <span>hackathon</span>
                 </Link>
               </div>
             </section>

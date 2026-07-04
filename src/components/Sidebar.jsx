@@ -10,6 +10,7 @@ const NAV_ITEMS = [
   { path: '/tech-stack', label: 'Stack', icon: 'fa-solid fa-cubes' },
   { path: '/visual-archive', label: 'Archive', icon: 'fa-regular fa-image' },
   { path: '/certification', label: 'Certification', icon: 'fa-solid fa-certificate' },
+  { path: '/achievements', label: 'Hackathon', icon: 'fa-solid fa-trophy' },
 ];
 
 export default function Sidebar({ onToggleChat }) {
