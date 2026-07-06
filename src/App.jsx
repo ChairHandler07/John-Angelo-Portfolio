@@ -15,11 +15,6 @@ export default function App() {
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    const saved = localStorage.getItem('theme') === 'dark';
-    if (saved) document.body.classList.add('dark-mode');
-  }, []);
-
-  useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;

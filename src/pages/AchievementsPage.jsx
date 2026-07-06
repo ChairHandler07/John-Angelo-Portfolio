@@ -14,18 +14,18 @@ export default function AchievementsPage() {
         <p className="page-subtitle">Hackathons, competitions, and notable recognitions.</p>
       </div>
 
-      <div className="certs-grid">
-        {ACHIEVEMENTS.map((a) => (
-          <a key={a.title} href={a.link} target="_blank" rel="noreferrer" className="cert-card" style={{ textDecoration: 'none' }}>
-            <div style={{ fontSize: '2rem', marginBottom: '0.75rem', opacity: 0.6 }}>
-              <i className="fa-solid fa-trophy"></i>
-            </div>
-            <h3>{a.title}</h3>
+      {ACHIEVEMENTS.map((a) => (
+        <a key={a.title} href={a.link} target="_blank" rel="noreferrer" className="achievement-card" style={{ textDecoration: 'none' }}>
+          <div style={{ fontSize: '1.2rem', opacity: 0.5, flexShrink: 0, width: '2rem', textAlign: 'center' }}>
+            <i className="fa-solid fa-trophy"></i>
+          </div>
+          <div className="preview-info">
+            <strong>{a.title}</strong>
             <p>{a.description}</p>
-            <span className="home-link" style={{ gap: 4 }}>View Post <i className="fa-solid fa-arrow-right"></i></span>
-          </a>
-        ))}
-      </div>
+            <span className="home-link" style={{ marginTop: '0.25rem', gap: 4, display: 'inline-flex' }}>View Post <i className="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </a>
+      ))}
     </div>
   );
 }

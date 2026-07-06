@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const PROJECTS = [
@@ -28,20 +27,14 @@ const PROJECTS = [
   }
 ];
 
-const FILTERS = [
-  { key: 'all', label: 'All Projects' },
-  { key: 'software', label: 'Software' },
-  { key: 'hardware', label: 'Hardware' },
-  { key: 'iot', label: 'IoT' }
+const CATEGORIES = [
+  { key: 'software', number: '01', label: 'Software' },
+  { key: 'hardware', number: '02', label: 'Hardware' },
+  { key: 'iot', number: '03', label: 'IoT' },
 ];
 
 export default function ProjectsPage() {
-  const [activeFilter, setActiveFilter] = useState('all');
   const navigate = useNavigate();
-
-  const filtered = activeFilter === 'all'
-    ? PROJECTS
-    : PROJECTS.filter(p => p.category === activeFilter);
 
   return (
     <div className="page-container">
@@ -50,41 +43,41 @@ export default function ProjectsPage() {
         <p className="page-subtitle">A collection of software, hardware, and IoT projects I've built.</p>
       </div>
 
-      <div className="project-filters">
-        {FILTERS.map(f => (
-          <button
-            key={f.key}
-            className={`project-filter-btn ${activeFilter === f.key ? 'active' : ''}`}
-            onClick={() => setActiveFilter(f.key)}
-          >
-            {f.label}
-          </button>
-        ))}
-      </div>
-
-      <div className="projects-grid">
-        {filtered.map((project) => (
-          <article
-            key={project.id}
-            className="project-card clickable"
-            onClick={() => navigate(`/projects/${project.id}`)}
-          >
-            <div className="project-card-header">
-              <span className={`project-category-badge ${project.category}`}>
-                {project.category}
-              </span>
+      {CATEGORIES.map((cat) => {
+        const filtered = PROJECTS.filter(p => p.category === cat.key);
+        if (filtered.length === 0) return null;
+        return (
+          <section key={cat.key} className="content-section" style={{ marginBottom: '1.5rem' }}>
+            <h2 className="section-title">
+              <span className="section-number">{cat.number}</span>
+              {cat.label}
+            </h2>
+            <div className="projects-grid">
+              {filtered.map((project) => (
+                <article
+                  key={project.id}
+                  className="project-card clickable"
+                  onClick={() => navigate(`/projects/${project.id}`)}
+                >
+                  <div className="project-card-header">
+                    <span className={`project-category-badge ${project.category}`}>
+                      {project.category}
+                    </span>
+                  </div>
+                  <h3>{project.title}</h3>
+                  <p>{project.shortDesc}</p>
+                  <button
+                    className="see-more-btn"
+                    onClick={(e) => { e.stopPropagation(); navigate(`/projects/${project.id}`); }}
+                  >
+                    View Case Study <i className="fa-solid fa-arrow-right"></i>
+                  </button>
+                </article>
+              ))}
             </div>
-            <h3>{project.title}</h3>
-            <p>{project.shortDesc}</p>
-            <button
-              className="see-more-btn"
-              onClick={(e) => { e.stopPropagation(); navigate(`/projects/${project.id}`); }}
-            >
-              View Case Study <i className="fa-solid fa-arrow-right"></i>
-            </button>
-          </article>
-        ))}
-      </div>
+          </section>
+        );
+      })}
     </div>
   );
 }

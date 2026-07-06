@@ -80,6 +80,7 @@ export default function Typewriter() {
   }, [sentence]);
 
   const startTest = useCallback(() => {
+    if (window.innerWidth <= 1024) return;
     setSentence(pickSentence());
     setTyped('');
     setElapsed(0);

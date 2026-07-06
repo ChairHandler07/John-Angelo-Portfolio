@@ -13,6 +13,7 @@ export default function Chatbot({ isOpen, onToggle }) {
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [closing, setClosing] = useState(false);
   const bodyRef = useRef(null);
 
   useEffect(() => {
@@ -69,16 +70,24 @@ export default function Chatbot({ isOpen, onToggle }) {
     }
   };
 
-  if (!isOpen) return null;
+  const handleClose = () => {
+    setClosing(true);
+    setTimeout(() => {
+      setClosing(false);
+      onToggle();
+    }, 350);
+  };
+
+  if (!isOpen && !closing) return null;
 
   return (
-    <div className="chat-container">
+    <div className={`chat-container${closing ? ' closing' : ''}`}>
       <div className="chat-header">
         <div className="chat-title">
           <span className="chat-status-dot"></span>
           Angelo's Assistant
         </div>
-        <button className="close-chat" onClick={onToggle}>
+        <button className="close-chat" onClick={handleClose}>
           <i className="fa-solid fa-minus"></i>
         </button>
       </div>

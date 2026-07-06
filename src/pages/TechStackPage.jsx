@@ -1,7 +1,7 @@
 const STACK = {
-  Frontend: ['React', 'JavaScript', 'React Native', 'HTML', 'CSS', 'JavaScript', 'Bootstrap'],
-  Backend: ['PHP', 'Laravel', 'Node.js', 'Python', 'Java', 'REST APIs'],
-  'DevOps & Cloud': ['GitHub', 'Firebase', 'MySQL', 'Vite'],
+  Frontend: ['React', 'React-Native', 'HTML', 'CSS', 'Bootstrap'],
+  Backend: ['PHP', 'Laravel', 'Node.js', 'Python', 'Java', 'JavaScript'],
+  'DevOps & Cloud': ['GitHub', 'Firebase', 'MySQL'],
   'Hardware & IoT': ['ESP32', 'Arduino']
 };
 

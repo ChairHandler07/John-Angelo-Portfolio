@@ -1,15 +1,37 @@
 import { useEffect, useRef } from 'react';
 
-const CERTIFICATIONS = [
+const CATEGORIES = [
   {
-    id: '3cc79060-6acf-48d6-a970-ea006c4f342e',
-    title: 'CCNAv7: Introduction to IoT',
-    issuer: 'Cisco',
+    number: '01',
+    label: 'Engineering',
+    certs: [
+      {
+        id: '3cc79060-6acf-48d6-a970-ea006c4f342e',
+        title: 'Introduction to IoT',
+        issuer: 'Cisco',
+      },
+      {
+        id: '95cf73e0-9a83-4803-8ee3-66e4e87e4177',
+        title: 'Python Essentials 2',
+        issuer: 'Cisco',
+      },
+      {
+        id: '2b4c6bc7-8053-4852-ba5c-cd555126b138',
+        title: 'JavaScript Essentials 2',
+        issuer: 'Cisco',
+      },
+    ],
   },
   {
-    id: '95cf73e0-9a83-4803-8ee3-66e4e87e4177',
-    title: 'CCNAv7: Python Essentials 2',
-    issuer: 'Cisco',
+    number: '02',
+    label: 'AI',
+    certs: [
+      {
+        id: 'cbbc015f-f1a4-4101-831e-3c7d385babd9',
+        title: 'AI for Engineering',
+        issuer: 'Credly',
+      },
+    ],
   },
 ];
 
@@ -21,11 +43,19 @@ export default function CertificationPage() {
         <p className="page-subtitle">Professional certifications and credentials I've earned.</p>
       </div>
 
-      <div className="certs-grid">
-        {CERTIFICATIONS.map((cert) => (
-          <CredlyBadge key={cert.id} cert={cert} />
-        ))}
-      </div>
+      {CATEGORIES.map((cat) => (
+        <section key={cat.number} className="content-section">
+          <h2 className="section-title">
+            <span className="section-number">{cat.number}</span>
+            {cat.label}
+          </h2>
+          <div className="certs-row">
+            {cat.certs.map((cert) => (
+              <CredlyBadge key={cert.id} cert={cert} />
+            ))}
+          </div>
+        </section>
+      ))}
     </div>
   );
 }
@@ -58,10 +88,10 @@ function CredlyBadge({ cert }) {
   }, [cert.id]);
 
   return (
-    <div className="cert-card">
-      <h3>{cert.title}</h3>
-      <p>Click to verify on Credly</p>
+    <div className="cert-item">
       <div className="cert-embed" ref={containerRef} />
+      <h3>{cert.title}</h3>
+      <p>{cert.issuer}</p>
     </div>
   );
 }

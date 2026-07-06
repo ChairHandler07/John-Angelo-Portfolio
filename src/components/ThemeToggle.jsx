@@ -1,36 +1,29 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 
 export default function ThemeToggle() {
   const [isDark, setIsDark] = useState(() => localStorage.getItem('theme') === 'dark');
-  const toggleRef = useRef(null);
-  const busy = useRef(false);
 
   const handleToggle = useCallback(() => {
-    if (busy.current) return;
-    busy.current = true;
+    const nextDark = !document.documentElement.classList.contains('dark');
 
-    const nextDark = !document.body.classList.contains('dark-mode');
-
-    document.body.classList.add('theme-blending');
+    document.documentElement.classList.add('theme-blending');
 
     if (nextDark) {
-      document.body.classList.add('dark-mode');
+      document.documentElement.classList.add('dark');
       localStorage.setItem('theme', 'dark');
     } else {
-      document.body.classList.remove('dark-mode');
+      document.documentElement.classList.remove('dark');
       localStorage.setItem('theme', 'light');
     }
     setIsDark(nextDark);
 
     setTimeout(() => {
-      document.body.classList.remove('theme-blending');
-      busy.current = false;
+      document.documentElement.classList.remove('theme-blending');
     }, 550);
   }, []);
 
   return (
     <button
-      ref={toggleRef}
       className={`theme-switch-btn ${isDark ? 'dark' : 'light'}`}
       onClick={handleToggle}
       aria-label="Toggle theme"
