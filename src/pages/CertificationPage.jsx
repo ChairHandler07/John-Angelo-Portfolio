@@ -28,7 +28,7 @@ const CATEGORIES = [
     certs: [
       {
         id: 'cbbc015f-f1a4-4101-831e-3c7d385babd9',
-        title: 'AI for Engineering',
+        title: 'AI Fundamentals',
         issuer: 'Credly',
       },
     ],

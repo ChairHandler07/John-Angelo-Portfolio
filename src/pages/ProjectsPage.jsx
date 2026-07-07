@@ -9,7 +9,7 @@ const PROJECTS = [
   },
   {
     id: "lpg-iot",
-    title: "IoT-enabled LPG Leak Detection, Weight Monitoring, and Valve Automatic Shutoff System",
+    title: "IoT-enabled LPG Leak Detection, Weight Monitoring, and Valve Automatic Shutoff System for Household Safety",
     shortDesc: "Hardware and software development for LPG automation utilizing ESP32 microcontroller.",
     category: "iot"
   },

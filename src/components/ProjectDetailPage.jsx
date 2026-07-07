@@ -9,12 +9,12 @@ const PROJECTS_DATA = [
     credentials: [
       { type: "image", label: "Courtesy Call from the President", src: "/Gallery2.png" },
       { type: "image", label: "Embedded System Project", src: "/airlink_hardware.jpg" },
-      { type: "pdf", label: "AFP Project Documentation", src: "AFP.pdf" }
+      { type: "pdf", label: "AFP Project Documentation", src: "/AFP.pdf" }
     ]
   },
   {
     id: "lpg-iot",
-    title: "IoT-enabled LPG Leak Detection, Weight Monitoring, and Valve Automatic Shutoff System",
+    title: "Development of IoT-enabled LPG Leak Detection, Weight Monitoring, and Valve Automatic Shutoff System for Household Safety",
     fullDesc: "Led hardware and software development utilizing an ESP32 microcontroller. Integrates load cell for tank monitoring, MQ-6 gas sensor to detect leaks and gas concentration, and a servo motor embedded with a ball valve for auto shut-off mechanism, providing automation for users in handling LPG and can control via mobile app over the internet.",
     hardware: ["ESP32 Microcontroller", "React-Native", "MQ-6 Gas Sensor", "Load Cell", "Servo Motor with Ball Valve"],
     credentials: [

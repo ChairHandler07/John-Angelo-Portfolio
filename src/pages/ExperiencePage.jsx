@@ -3,7 +3,13 @@ const EXPERIENCES = [
     title: 'Hardware Design & Algorithm',
     year: '2026',
     company: 'CPE Design Project Thesis',
-    description: 'Leading hardware-software integration for IoT-based LPG safety system'
+    description: 'Led hardware-software integration for IoT-based LPG safety system'
+  },
+  {
+    title: 'Technical Support & Software Developer | Intern',
+    year: '2026',
+    company: 'Espiritu Santo Parochial School, Inc.',
+    description: 'Assigned to provide technical support and proposed an initial plan for website development and maintenance for the school'
   },
   {
     title: 'Software & Hardware Lead',
@@ -21,12 +27,12 @@ const EXPERIENCES = [
     title: 'BS Computer Engineering',
     year: '2021',
     company: 'University — Manila',
-    description: 'Pursuing degree with focus on embedded systems and software engineering'
+    description: 'Pursuing degree with focus through software engineering'
   },
   {
     title: 'First Line of Code',
     year: '2021',
-    company: 'Personal Milestone',
+    company: '',
     description: 'Began the journey into software development and engineering'
   }
 ];
@@ -36,7 +42,7 @@ export default function ExperiencePage() {
     <div className="page-container">
       <div className="page-header">
         <h1 className="page-title">experience</h1>
-        <p className="page-subtitle">My professional journey and key milestones.</p>
+        <p className="page-subtitle">My journey through tech industry</p>
       </div>
 
       <div className="exp-timeline-full">

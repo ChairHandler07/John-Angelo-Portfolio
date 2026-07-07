@@ -10,7 +10,7 @@ export default function TechStackPage() {
     <div className="page-container">
       <div className="page-header">
         <h1 className="page-title">Tech Stack</h1>
-        <p className="page-subtitle">Technologies and tools I work with across the full stack.</p>
+        <p className="page-subtitle">Technologies and tools I work with across the development</p>
       </div>
 
       <div className="tech-stack-full">
