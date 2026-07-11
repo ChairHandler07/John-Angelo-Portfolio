@@ -28,6 +28,14 @@ const SENTENCES = [
   'Always code as if the guy who ends up maintaining your code is a violent psychopath who knows where you live',
 ];
 
+const KEYBOARD_ROWS = [
+  ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\'],
+  ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'"],
+  ['z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/'],
+];
+
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
 let usedIndices = [];
 
 function pickSentence() {
@@ -54,10 +62,12 @@ export default function Typewriter() {
   const [finished, setFinished] = useState(false);
   const [wpm, setWpm] = useState(0);
   const [accuracy, setAccuracy] = useState(100);
+  const [pressedKey, setPressedKey] = useState('');
 
   const inputRef = useRef(null);
   const timerRef = useRef(null);
   const startTimeRef = useRef(null);
+  const audioCtxRef = useRef(null);
 
   const finishTest = useCallback((val) => {
     clearInterval(timerRef.current);
@@ -80,7 +90,6 @@ export default function Typewriter() {
   }, [sentence]);
 
   const startTest = useCallback(() => {
-    if (window.innerWidth <= 1024) return;
     setSentence(pickSentence());
     setTyped('');
     setElapsed(0);
@@ -100,9 +109,28 @@ export default function Typewriter() {
     clearInterval(timerRef.current);
   }, []);
 
-  const handleChange = useCallback((e) => {
+  const playClick = useCallback(() => {
+    try {
+      if (!audioCtxRef.current) {
+        audioCtxRef.current = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      const ctx = audioCtxRef.current;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.frequency.value = 1000;
+      osc.type = 'sine';
+      gain.gain.setValueAtTime(0.05, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.04);
+    } catch (e) { /* ignore */ }
+  }, []);
+
+  const processInput = useCallback((val) => {
     if (finished) return;
-    const val = e.target.value.slice(0, sentence.length);
+    val = val.slice(0, sentence.length);
 
     if (!hasStarted && val.length > 0) {
       setHasStarted(true);
@@ -119,12 +147,36 @@ export default function Typewriter() {
     }
   }, [hasStarted, sentence, finished, finishTest]);
 
-  const handleKeyDown = useCallback((e) => {
-    if (e.key === 'Escape') backToIdle();
-  }, [backToIdle]);
+  const handleChange = useCallback((e) => {
+    processInput(e.target.value);
+  }, [processInput]);
+
+  const pressTimerRef = useRef(null);
+
+  const handleKeyClick = useCallback((key) => {
+    if (finished) return;
+    let newTyped;
+    if (key === 'Backspace') {
+      newTyped = typed.slice(0, -1);
+    } else {
+      newTyped = typed + key;
+    }
+    processInput(newTyped);
+    if (inputRef.current) {
+      inputRef.current.value = newTyped;
+    }
+    playClick();
+    setPressedKey(key);
+    if (pressTimerRef.current) clearTimeout(pressTimerRef.current);
+    pressTimerRef.current = setTimeout(() => setPressedKey(''), 120);
+  }, [finished, typed, processInput, playClick]);
 
   useEffect(() => {
-    if (showTest && inputRef.current) {
+    return () => clearTimeout(pressTimerRef.current);
+  }, []);
+
+  useEffect(() => {
+    if (showTest && inputRef.current && !isTouchDevice) {
       setTimeout(() => inputRef.current?.focus(), 100);
     }
   }, [showTest]);
@@ -132,6 +184,37 @@ export default function Typewriter() {
   useEffect(() => {
     return () => clearInterval(timerRef.current);
   }, []);
+
+  useEffect(() => {
+    if (!showTest) return;
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        backToIdle();
+        return;
+      }
+      if (finished) return;
+
+      let key = e.key;
+      if (key === ' ') key = ' ';
+      else if (key.length === 1) key = key.toLowerCase();
+      else return;
+
+      setPressedKey(key);
+      playClick();
+    };
+
+    const handleKeyUp = () => {
+      setPressedKey('');
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keyup', handleKeyUp);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keyup', handleKeyUp);
+    };
+  }, [showTest, finished, backToIdle, playClick]);
 
   // ── idle typewriter animation ──
   useEffect(() => {
@@ -171,7 +254,7 @@ export default function Typewriter() {
 
       {showTest && createPortal(
         <div className="typing-test-overlay" onClick={backToIdle}>
-          <div className="typing-test-modal" onClick={() => { if (!finished) inputRef.current?.focus(); }}>
+          <div className="typing-test-modal" onClick={() => { if (!finished && !isTouchDevice) inputRef.current?.focus(); }}>
             <input
               ref={inputRef}
               type="text"
@@ -184,7 +267,6 @@ export default function Typewriter() {
               data-form-type="other"
               value={typed}
               onChange={handleChange}
-              onKeyDown={handleKeyDown}
               onFocus={(e) => e.target.setSelectionRange(e.target.value.length, e.target.value.length)}
             />
 
@@ -215,13 +297,43 @@ export default function Typewriter() {
               </div>
             ) : (
               <>
-                <div className="typing-test-sentence" onClick={() => inputRef.current?.focus()}>
+                <div className="typing-test-sentence" onClick={() => { if (!isTouchDevice) inputRef.current?.focus(); }}>
                   {sentence.split('').map((char, i) => {
                     let cls = '';
                     if (i < typed.length) cls = typed[i] === char ? 'char-correct' : 'char-wrong';
                     if (i === typed.length) cls += ' char-current';
                     return <span key={i} className={cls}>{char}</span>;
                   })}
+                </div>
+
+                <div className="typing-keyboard">
+                  {KEYBOARD_ROWS.map((row, ri) => (
+                    <div key={ri} className="typing-keyboard-row">
+                      {row.map((key) => (
+                        <span
+                          key={key}
+                          className={`typing-key${pressedKey === key ? ' pressed' : ''}`}
+                          onPointerDown={(e) => { e.preventDefault(); handleKeyClick(key); }}
+                        >
+                          {key}
+                        </span>
+                      ))}
+                      {ri === 2 && (
+                        <span
+                          className={`typing-key typing-key-bksp${pressedKey === 'Backspace' ? ' pressed' : ''}`}
+                          onPointerDown={(e) => { e.preventDefault(); handleKeyClick('Backspace'); }}
+                        >
+                          ⌫
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                  <div className="typing-keyboard-row">
+                    <span
+                      className={`typing-key typing-key-space${pressedKey === ' ' ? ' pressed' : ''}`}
+                      onPointerDown={(e) => { e.preventDefault(); handleKeyClick(' '); }}
+                    />
+                  </div>
                 </div>
 
                 {hasStarted ? (

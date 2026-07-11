@@ -26,7 +26,7 @@ const EXPERIENCES = [
   {
     title: 'BS Computer Engineering',
     year: '2021',
-    company: 'University — Manila',
+    company: 'Pamantasan ng Lungsod ng Maynila',
     description: 'Pursuing degree with focus through software engineering'
   },
   {

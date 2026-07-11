@@ -1,25 +1,18 @@
 import { useEffect, useRef } from 'react';
 
-export default function Reveal({ children, threshold = 0.15, className = '' }) {
+export default function Reveal({ children, className = '' }) {
   const ref = useRef(null);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold }
-    );
+    const raf = requestAnimationFrame(() => {
+      el.classList.add('revealed');
+    });
 
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [threshold]);
+    return () => cancelAnimationFrame(raf);
+  }, []);
 
   return (
     <div ref={ref} className={`reveal ${className}`}>

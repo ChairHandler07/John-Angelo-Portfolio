@@ -6,6 +6,8 @@ const IMAGES = [
   { src: '/airlink.jpg', alt: 'Airlink' },
   { src: '/GasolveTeam.jpg', alt: 'Gasolve Team' },
   { src: '/AFP.jpg', alt: 'afp' },
+  { src: '/GaSolve_app.png', alt: 'GaSolve App' },
+  { src: '/airlink_hardware.jpg', alt: 'Airlink Hardware' }
 ];
 
 export default function VisualArchivePage() {

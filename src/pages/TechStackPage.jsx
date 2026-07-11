@@ -1,8 +1,9 @@
 const STACK = {
-  Frontend: ['React', 'React-Native', 'HTML', 'CSS', 'Bootstrap'],
-  Backend: ['PHP', 'Laravel', 'Node.js', 'Python', 'Java', 'JavaScript'],
-  'DevOps & Cloud': ['GitHub', 'Firebase', 'MySQL'],
-  'Hardware & IoT': ['ESP32', 'Arduino']
+  Frontend: ['React', 'JavaScript', 'Vite', 'Tailwind CSS', 'Prettier'],
+  Backend: ['PHP', 'Laravel', 'Node.js', 'Python', 'Java', 'Express.js', 'Firebase', 'MySQL', 'MongoDB', 'PostgreSQL'],
+  'AI & Machine Learning': ['TensorFlow', 'OpenCV', 'Hugging Face', 'Gemini', 'Claude Code'],
+  'DevOps & Cloud': ['GitHub'],
+  'Hardware & IoT': ['ESP32', 'Arduino'],
 };
 
 export default function TechStackPage() {

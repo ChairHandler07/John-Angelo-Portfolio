@@ -42,22 +42,24 @@ export default function Sidebar({ onToggleChat }) {
         >
           <i className={`fa-solid ${isOpen ? 'fa-xmark' : 'fa-bars'}`}></i>
         </button>
-        <nav className="sidebar-nav">
-          {NAV_ITEMS.map((item) => (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              end={item.path === '/'}
-              className={({ isActive }) =>
-                `sidebar-link${isActive ? ' active' : ''}`
-              }
-              onClick={close}
-            >
-              <i className={item.icon}></i>
-              <span>{item.label}</span>
-            </NavLink>
-          ))}
-        </nav>
+        <div className="sidebar-scrollable">
+          <nav className="sidebar-nav">
+            {NAV_ITEMS.map((item) => (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                end={item.path === '/'}
+                className={({ isActive }) =>
+                  `sidebar-link${isActive ? ' active' : ''}`
+                }
+                onClick={close}
+              >
+                <i className={item.icon}></i>
+                <span>{item.label}</span>
+              </NavLink>
+            ))}
+          </nav>
+        </div>
         <div className="sidebar-typewriter-area">
           <Typewriter />
         </div>

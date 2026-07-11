@@ -96,14 +96,11 @@ export default function ProjectDetailPage() {
             {project.hardware && (
               <div className="page-section">
                 <h4>Stack</h4>
-                <ul className="hardware-list">
+                <div className="hardware-pills">
                   {project.hardware.map((item, i) => (
-                    <li key={i}>
-                      <i className="fa-solid fa-microchip"></i>
-                      <span>{item}</span>
-                    </li>
+                    <span key={i} className="hardware-pill">{item}</span>
                   ))}
-                </ul>
+                </div>
               </div>
             )}
 

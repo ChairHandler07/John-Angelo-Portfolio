@@ -9,7 +9,7 @@ const SUGGESTIONS = [
 
 export default function Chatbot({ isOpen, onToggle }) {
   const [messages, setMessages] = useState([
-    { sender: 'bot', text: "Good day! I'm Angelo's virtual assistant. How may I help you?" }
+    { sender: 'bot', text: "Good day! How may I help you?" }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -48,7 +48,8 @@ export default function Chatbot({ isOpen, onToggle }) {
               ACHIEVEMENT: Ideathon 2025 Finalist.
               TECH STACK: React, JavaScript, TypeScript, Flutter (Frontend); PHP, Laravel, Node.js, Python (Backend); ESP32, C++ (Hardware); Git, AWS, Firebase, MySQL (Tools).
               PROJECTS: IoT LPG Leak Detection System (2025-2026), Airlink Defense System for AFP (2025), Blood Bank Management System (2023).
-              EXPERIENCE: Started coding in 2021.`
+              EXPERIENCE: Started coding in 2021.
+              ADDITION: Don't specify that you are an AI assistant for angelo because they already know that.`
             },
             { role: "user", content: text }
           ]
