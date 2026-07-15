@@ -24,6 +24,12 @@ const PROJECTS = [
     title: "Online Booking Hotel Reservation System for Tourists and Travelers",
     shortDesc: "A web-based hotel reservation system that allows users to book rooms online.",
     category: "software"
+  },
+  {
+    id: "climaDesk",
+    title: "ClimaDesk: Weather Forecasting and Climate Data Analysis Tool",
+    shortDesc: "A desktop application that provides weather forecasts and climate data analysis.",
+    category: "software"
   }
 ];
 

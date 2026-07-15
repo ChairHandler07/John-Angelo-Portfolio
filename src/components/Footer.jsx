@@ -1,10 +1,6 @@
 export default function Footer() {
   return (
     <footer className="site-footer">
-      <div className="footer-col footer-brand">
-        <h4></h4>
-        <p className="footer-tagline">Computer Engineer · Software Engineer</p>
-      </div>
       <div className="footer-col">
         <h4>Contact</h4>
         <p>johnangeloconcepcion8@gmail.com</p>

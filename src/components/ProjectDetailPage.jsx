@@ -40,6 +40,18 @@ const PROJECTS_DATA = [
       { type: "image", label: "Client Dashboard Interface", src: "/hotellium_dashboard.png" },
       { type: "image", label: "Admin Dashboard Interface", src: "/hotellium_admin.png" }
     ]
+  },
+  {
+    id: "climaDesk",
+    title: "ClimaDesk: Weather Forecasting and Climate Data Analysis Tool",
+    fullDesc: "A desktop weather application built with Python and PyQt5 that fetches real-time weather data from the OpenWeatherMap API. Users enter a city name and receive the current temperature (in both Celsius and Fahrenheit), a weather description, and a corresponding emoji icon. The app includes comprehensive error handling for network issues, invalid API keys, and city-not-found scenarios.",
+    hardware: ["Python", "PyQt5", "OpenWeatherMap (REST)", "QT Stylesheet"],
+    credentials: [
+      { type: "image", label: "ClimaDesk Interface", src: "/climadesk1.png" },
+      { type: "image", label: "ClimaDesk Interface", src: "/climadesk2.png" },
+      { type: "image", label: "ClimaDesk Error City Not Found", src: "/climadesk3.png" },
+      { type: "image", label: "ClimaDesk No Internet Connection", src: "/climadesk4.png" }
+    ]
   }
 ];
 
