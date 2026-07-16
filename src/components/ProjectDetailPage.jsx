@@ -7,9 +7,9 @@ const PROJECTS_DATA = [
     fullDesc: "Developed an encryption message transmission tool using ESP32 as a transmission message utility, handling software integration with encryption logic using ATECC608a chip and receiver-side architecture. Built to help the AFP provide services for indigenous people in secluded areas.",
     hardware: ["ESP32 Development Module", "ATECC608a Crypto-Chip", "Receiver-side Architecture"],
     credentials: [
-      { type: "image", label: "Courtesy Call from the President", src: "/Gallery2.png" },
-      { type: "image", label: "Embedded System Project", src: "/airlink_hardware.jpg" },
-      { type: "pdf", label: "AFP Project Documentation", src: "/AFP.pdf" }
+      { type: "image", label: "AirLink: Courtesy Call from the President", src: "/Gallery2.png" },
+      { type: "image", label: "AirLink: Embedded System Project", src: "/airlink_hardware.jpg" },
+      { type: "pdf", label: "AirLink: AFP Project Documentation", src: "/AFP.pdf" }
     ]
   },
   {
@@ -18,7 +18,9 @@ const PROJECTS_DATA = [
     fullDesc: "Led hardware and software development utilizing an ESP32 microcontroller. Integrates load cell for tank monitoring, MQ-6 gas sensor to detect leaks and gas concentration, and a servo motor embedded with a ball valve for auto shut-off mechanism, providing automation for users in handling LPG and can control via mobile app over the internet.",
     hardware: ["ESP32 Microcontroller", "React-Native", "MQ-6 Gas Sensor", "Load Cell", "Servo Motor with Ball Valve"],
     credentials: [
-      { type: "image", label: "Mobile App Interface", src: "/GaSolve_app.png" }
+      { type: "image", label: "GaSolve: Mobile App", src: "/GaSolve_app.png" },
+      { type: "image", label: "GaSolve: Structure", src: "/gasolvedetails.png" },
+      { type: "image", label: "GaSolve: System Architecture", src: "/gasolve_architecture.png" }
     ]
   },
   {
@@ -27,7 +29,7 @@ const PROJECTS_DATA = [
     fullDesc: "Collaborated on creating a web dashboard for the project blood bank management system to improve the exchange of data and to enrich scalability. Further, to enhance user experience and streamline operations using modern web technologies.",
     hardware: ["React", "Laravel PHP", "MySQL"],
     credentials: [
-      { type: "image", label: "Dashboard Preview", src: "/bloodbank_image.png" }
+      { type: "image", label: "BloodBank: Dashboard Preview", src: "/bloodbank_image.png" }
     ]
   },
   {
@@ -36,9 +38,9 @@ const PROJECTS_DATA = [
     fullDesc: "Developed a web-based hotel reservation system that allows users to book rooms online. The system provides an easy-to-use interface for both customers and hotel administrators, streamlining the booking process and improving overall user experience.",
     hardware: ["PHP", "Laravel Framework", "MySQL", "CSS Bootstrap"],
     credentials: [
-      { type: "image", label: "Hotel Booking Interface", src: "/hotellium_interface.png" },
-      { type: "image", label: "Client Dashboard Interface", src: "/hotellium_dashboard.png" },
-      { type: "image", label: "Admin Dashboard Interface", src: "/hotellium_admin.png" }
+      { type: "image", label: "Hotellium: Hotel Booking Interface", src: "/hotellium_interface.png" },
+      { type: "image", label: "Hotellium: Client Dashboard Interface", src: "/hotellium_dashboard.png" },
+      { type: "image", label: "Hotellium: Admin Dashboard Interface", src: "/hotellium_admin.png" }
     ]
   },
   {
@@ -47,10 +49,20 @@ const PROJECTS_DATA = [
     fullDesc: "A desktop weather application built with Python and PyQt5 that fetches real-time weather data from the OpenWeatherMap API. Users enter a city name and receive the current temperature (in both Celsius and Fahrenheit), a weather description, and a corresponding emoji icon. The app includes comprehensive error handling for network issues, invalid API keys, and city-not-found scenarios.",
     hardware: ["Python", "PyQt5", "OpenWeatherMap (REST)", "QT Stylesheet"],
     credentials: [
-      { type: "image", label: "ClimaDesk Interface", src: "/climadesk1.png" },
-      { type: "image", label: "ClimaDesk Interface", src: "/climadesk2.png" },
-      { type: "image", label: "ClimaDesk Error City Not Found", src: "/climadesk3.png" },
-      { type: "image", label: "ClimaDesk No Internet Connection", src: "/climadesk4.png" }
+      { type: "image", label: "ClimaDesk: Interface", src: "/climadesk1.png" },
+      { type: "image", label: "ClimaDesk: Interface", src: "/climadesk2.png" },
+      { type: "image", label: "ClimaDesk: Error City Not Found", src: "/climadesk3.png" },
+      { type: "image", label: "ClimaDesk: No Internet Connection", src: "/climadesk4.png" }
+    ]
+  },
+  {
+    id: "habiTab",
+    title: "HabiTab: A Habit tracker web-app for everyday use, monitoring the routine via sending data into digital storage",
+    fullDesc: "",
+    hardware: ["React", "Tailwind CSS", "TypeScript"],
+    credentials: [
+      { type: "image", label: "HabiTab: Dashboard", src: "/habit_tracker1.png" },
+      { type: "image", label: "HabiTab: Habit Tracking", src: "/habit_tracker2.png" }
     ]
   }
 ];

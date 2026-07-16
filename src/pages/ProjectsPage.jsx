@@ -30,13 +30,19 @@ const PROJECTS = [
     title: "ClimaDesk: Weather Forecasting and Climate Data Analysis Tool",
     shortDesc: "A desktop application that provides weather forecasts and climate data analysis.",
     category: "software"
+  },
+  {
+    id: "habiTab",
+    title: "HabiTab: A Habit tracker web-app that boosts awareness and productivity",
+    shortDesc: "A minimalist weekly habit tracking app built with React and Tailwind CSS. Add habits, toggle daily completions on a Monday–Sunday calendar grid, and watch your streaks grow — all data persists in localStorage.",
+    category: "software"
   }
 ];
 
 const CATEGORIES = [
   { key: 'software', number: '01', label: 'Software' },
   { key: 'hardware', number: '02', label: 'Hardware' },
-  { key: 'iot', number: '03', label: 'IoT' },
+  { key: 'iot', number: '03', label: 'IoT' }
 ];
 
 export default function ProjectsPage() {

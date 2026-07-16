@@ -16,7 +16,7 @@ const PROJECT_PREVIEWS = [
     shortDesc: "Hardware and software development for LPG automation.",
     category: "iot"
   },
-  {
+  {     
     id: "blood-bank",
     title: "Blood Bank Management System",
     shortDesc: "Web dashboard to improve data exchange and scalability.",
@@ -45,7 +45,7 @@ const EXPERIENCE_PREVIEWS = [
   }
 ];
 
-const TECH_PREVIEWS = ['React', 'Laravel', 'Node.js', 'Python', 'Java'];
+const TECH_PREVIEWS = ['React', 'Laravel', 'Node.js', 'Python', 'JavaScript'];
 
 export default function HomePage() {
   return (
