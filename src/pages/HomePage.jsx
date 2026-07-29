@@ -1,7 +1,9 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ProfileHeader from '../components/ProfileHeader';
 import Reveal from '../components/Reveal';
 import Footer from '../components/Footer';
+import SideRays from '../components/SideRays';
 
 const PROJECT_PREVIEWS = [
   {
@@ -48,8 +50,35 @@ const EXPERIENCE_PREVIEWS = [
 const TECH_PREVIEWS = ['React', 'Laravel', 'Node.js', 'Python', 'JavaScript'];
 
 export default function HomePage() {
+  const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains('dark'));
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="home-page">
+      {isDark && (
+        <div className="page-rays-bg">
+          <SideRays
+            speed={2.5}
+            rayColor1="#EAB308"
+            rayColor2="#96c8ff"
+            intensity={2}
+            spread={2}
+            origin="top-right"
+            tilt={0}
+            saturation={1.5}
+            blend={0.75}
+            falloff={1.6}
+            opacity={1.0}
+          />
+        </div>
+      )}
       <div className="portfolio-wrapper">
         <ProfileHeader />
 
