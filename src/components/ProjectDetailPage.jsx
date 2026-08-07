@@ -64,6 +64,17 @@ const PROJECTS_DATA = [
       { type: "image", label: "HabiTab: Dashboard", src: "/habit_tracker1.png" },
       { type: "image", label: "HabiTab: Habit Tracking", src: "/habit_tracker2.png" }
     ]
+  },
+  {
+    id: "SightSecure",
+    title: "SightSecure: AI-powered pharmaceutical authentication for examining the authenticity of drug products",
+    fullDesc: "Developed a web application that uses AI to verify the authenticity of pharmaceutical products. Users can upload a photo of the product, and the system analyzes it to determine if it matches the characteristics of genuine Unilab products.",
+    hardware: ["Next.js", "TypeScript", "Python", "FastAPI", "Uvicorn (REST API)", "PyTorch", "OpenCV"],
+    credentials: [
+      { type: "image", label: "SightSecure: Product Authentication", src: "/sightsecure1.png" },
+      { type: "image", label: "SightSecure: Results Display", src: "/sightsecure2.png" },
+      { type: "image", label: "SightSecure: Results Display", src: "/sightsecure3.png" }
+    ]
   }
 ];
 

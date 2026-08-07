@@ -21,7 +21,7 @@ const PROJECTS = [
   },
   {
     id: "hotellium",
-    title: "Online Booking Hotel Reservation System for Tourists and Travelers",
+    title: "Hotellium: Online Booking Hotel Reservation System for Tourists and Travelers",
     shortDesc: "A web-based hotel reservation system that allows users to book rooms online.",
     category: "software"
   },
@@ -35,6 +35,12 @@ const PROJECTS = [
     id: "habiTab",
     title: "HabiTab: A Habit tracker web-app that boosts awareness and productivity",
     shortDesc: "A minimalist weekly habit tracking app built with React and Tailwind CSS. Add habits, toggle daily completions on a Monday–Sunday calendar grid, and watch your streaks grow — all data persists in localStorage.",
+    category: "software"
+  },
+  {
+    id: "SightSecure",
+    title: "SightSecure: AI-powered pharmaceutical authentication",
+    shortDesc: "A web application that uses AI to verify the authenticity of pharmaceutical products.",
     category: "software"
   }
 ];
