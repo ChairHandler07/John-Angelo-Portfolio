@@ -34,7 +34,7 @@ const PROJECTS = [
   {
     id: "habiTab",
     title: "HabiTab: A Habit tracker web-app that boosts awareness and productivity",
-    shortDesc: "A minimalist weekly habit tracking app built with React and Tailwind CSS. Add habits, toggle daily completions on a Monday–Sunday calendar grid, and watch your streaks grow — all data persists in localStorage.",
+    shortDesc: "A minimal weekly habit tracking app built with React and Tailwind CSS. Add habits, toggle daily completions on a Monday–Sunday calendar grid, and watch your streaks grow — all data persists in localStorage.",
     category: "software"
   },
   {

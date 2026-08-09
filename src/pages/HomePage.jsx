@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import CoverflowGallery from '../components/originkit/ui/coverflowgallery';
 import ProfileHeader from '../components/ProfileHeader';
 import Reveal from '../components/Reveal';
 import Footer from '../components/Footer';
@@ -10,19 +11,22 @@ const PROJECT_PREVIEWS = [
     id: "airlink",
     title: "Embedded Systems: Airlink Defense System",
     shortDesc: "Encryption message transmission tool built for the AFP.",
-    category: "hardware"
+    category: "hardware",
+    logo: "/AIRLINK.png"
   },
   {
     id: "lpg-iot",
     title: "IoT-enabled LPG Leak Detection and Safety System",
     shortDesc: "Hardware and software development for LPG automation.",
-    category: "iot"
+    category: "iot",
+    logo: "/GASOLVE.png"
   },
-  {     
+  {
     id: "blood-bank",
     title: "Blood Bank Management System",
     shortDesc: "Web dashboard to improve data exchange and scalability.",
-    category: "software"
+    category: "software",
+    logo: null
   }
 ];
 
@@ -49,7 +53,58 @@ const EXPERIENCE_PREVIEWS = [
 
 const TECH_PREVIEWS = ['React', 'Laravel', 'Node.js', 'Python', 'JavaScript'];
 
+const PROJECT_SLIDE = (project, navigate) => (
+  <div
+    style={{
+      height: '100%',
+      width: '100%',
+      background: 'var(--bg)',
+      border: '1px solid var(--border-color)',
+      padding: '1.5rem 1.75rem',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '0.5rem',
+      position: 'relative',
+    }}
+  >
+    <div className="project-card-header">
+      <span className={`project-category-badge ${project.category}`}>{project.category}</span>
+    </div>
+    <h3 style={{ fontSize: '0.95rem' }}>{project.title}</h3>
+    <p style={{ fontSize: '0.78rem', marginBottom: 0 }}>{project.shortDesc}</p>
+    <div style={{ marginTop: 'auto' }} />
+    <button
+      className="see-more-btn"
+      onClick={(e) => { e.stopPropagation(); navigate(`/projects/${project.id}`); }}
+    >
+      View Case Study <i className="fa-solid fa-arrow-right"></i>
+    </button>
+
+    {project.logo && (
+      <img
+        src={project.logo}
+        alt={`${project.title} logo`}
+        className="coverflow-logo"
+        style={{
+          position: 'absolute',
+          right: '1rem',
+          bottom: '1rem',
+          width: '2rem',
+          height: '2rem',
+          objectFit: 'contain',
+          borderRadius: 'var(--radius-xs)',
+          pointerEvents: 'none',
+          userSelect: 'none',
+        }}
+      />
+    )}
+  </div>
+);
+
 export default function HomePage() {
+  const navigate = useNavigate();
+  const coverRef = useRef(null);
+  const [frame, setFrame] = useState({ w: 360, h: 290, gap: 4 });
   const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains('dark'));
 
   useEffect(() => {
@@ -58,6 +113,18 @@ export default function HomePage() {
     });
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const measure = () => {
+      const width = coverRef.current ? coverRef.current.clientWidth : 672;
+      if (width >= 860) setFrame({ w: 360, h: 290, gap: 4 });
+      else if (width >= 600) setFrame({ w: 320, h: 260, gap: 3.5 });
+      else setFrame({ w: Math.min(240, Math.max(190, width - 60)), h: 200, gap: 2.5 });
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
   }, []);
 
   return (
@@ -91,15 +158,21 @@ export default function HomePage() {
               <Link to="/projects" className="home-link">View All <i className="fa-solid fa-arrow-right"></i></Link>
             </div>
             <div>
-              {PROJECT_PREVIEWS.map((p) => (
-                <Link to="/projects" key={p.id} className="preview-item">
-                  <span className={`preview-badge ${p.category}`}>{p.category}</span>
-                  <div className="preview-info">
-                    <strong>{p.title}</strong>
-                    <p>{p.shortDesc}</p>
-                  </div>
-                </Link>
-              ))}
+              <CoverflowGallery
+                slides={PROJECT_PREVIEWS.map((p) => ({
+                  title: p.title,
+                  content: PROJECT_SLIDE(p, navigate)
+                }))}
+                cardWidth={frame.w}
+                cardHeight={frame.h}
+                radius={2}
+                tilt={5}
+                sideTilt={6}
+                gap={frame.gap}
+                opacity={72}
+                showTitle={false}
+                style={{ width: '100%', margin: '0 auto' }}
+              />
             </div>
           </section>
         </Reveal>
