@@ -75,6 +75,19 @@ const PROJECTS_DATA = [
       { type: "image", label: "SightSecure: Results Display", src: "/sightsecure2.png" },
       { type: "image", label: "SightSecure: Results Display", src: "/sightsecure3.png" }
     ]
+  },
+  {
+    id: "TinyChats",
+    title: "TinyChats: A lightweight AI chat application for real-time communication",
+    fullDesc: "Developed a simple AI chat application that allows users to communicate in real-time with AI assistance. The application provides a user-friendly interface for sending and receiving messages, making it easy for users to engage in conversations.",
+    hardware: ["ESP32 Dev Module", "C++", "LVGL v8 framework", "Groq API"],
+    credentials: [
+      { type: "image", label: "TinyChats: System Architecture", src: "/TinyChats5.png" },
+      { type: "image", label: "TinyChats: Chat Interface", src: "/TinyChats1.jpg" },
+      { type: "image", label: "TinyChats: Chat Interface", src: "/TinyChats2.jpg" },
+      { type: "image", label: "TinyChats: Chat Interface", src: "/TinyChats3.jpg" },
+      { type: "image", label: "TinyChats: Chat Interface", src: "/TinyChats4.jpg" }
+    ]
   }
 ];
 

@@ -42,6 +42,12 @@ const PROJECTS = [
     title: "SightSecure: AI-powered pharmaceutical authentication",
     shortDesc: "A web application that uses AI to verify the authenticity of pharmaceutical products.",
     category: "software"
+  },
+  {
+    id: "TinyChats",
+    title: "TinyChats: A lightweight chat application for real-time communication",
+    shortDesc: "A simple chat application that allows users to communicate in real-time with AI assistance.",
+    category: "iot"
   }
 ];
 
