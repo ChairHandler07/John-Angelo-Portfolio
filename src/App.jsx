@@ -9,6 +9,7 @@ import TechStackPage from './pages/TechStackPage';
 import VisualArchivePage from './pages/VisualArchivePage';
 import CertificationPage from './pages/CertificationPage';
 import AchievementsPage from './pages/AchievementsPage';
+import BlogPage from './pages/BlogPage';
 import './App.css';
 
 export default function App() {
@@ -37,6 +38,7 @@ export default function App() {
           <Route path="/visual-archive" element={<VisualArchivePage />} />
           <Route path="/certification" element={<CertificationPage />} />
           <Route path="/achievements" element={<AchievementsPage />} />
+          <Route path="/blog" element={<BlogPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
